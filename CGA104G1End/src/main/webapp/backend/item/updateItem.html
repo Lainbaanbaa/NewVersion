@@ -1,0 +1,723 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <!--        <script src="https://unpkg.com/vue@next"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        <!--    datepicker-->
+        <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+        <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
+
+        <!--        錯誤處理-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
+        <title>修改商品詳情</title>
+
+        <style>
+
+            html {
+                background-color: ghostwhite;
+                font-family: sans-serif;
+            }
+
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+
+            @keyframes slide-up2 {
+                0% {
+                    transform: translateY(.5em);
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes glow-load {
+                0% {
+                    box-shadow: none;
+                }
+
+                100% {
+                    box-shadow:
+                            0px 0px 50px #ffffff;
+                }
+            }
+
+            @keyframes continuous-glow {
+                0% {
+                    box-shadow: 0 0 5px rgb(234, 232, 228), inset 0 0 5px rgb(234, 232, 228), 0 2px 0 rgb(234, 232, 228);
+                }
+
+                100% {
+                    box-shadow: 0 0 5px rgb(234, 232, 228), inset 0 0 10px rgb(234, 232, 228), 0 2px 0 rgb(234, 232, 228);
+                }
+
+
+            }
+
+            /* @keyframes blur-load {
+                0% {
+                    opacity: 0;
+                    filter: blur(0.2em);
+                }
+
+                100% {
+                    opacity: 1;
+                    filter: blur(0);
+                }
+            } */
+
+            .form-container {
+                background-color: ghostwhite;
+                margin: auto;
+                width: 90%;
+            }
+
+            .form-item,
+            .textarea-div {
+                opacity: 0;
+                width: 97%;
+                height: min-content;
+            }
+
+            .form-item1 {
+                animation: .2s cubic-bezier(0.47, 0, 0.745, 0.715) .3s 1 slide-up2;
+                animation-fill-mode: forwards;
+            }
+
+
+            .form-item3 {
+                animation: .2s cubic-bezier(0.47, 0, 0.745, 0.715) .5s 1 slide-up2;
+                animation-fill-mode: forwards;
+            }
+
+            .form-item4 {
+                animation: .2s cubic-bezier(0.47, 0, 0.745, 0.715) .6s 1 slide-up2;
+                animation-fill-mode: forwards;
+            }
+
+            form {
+                background-color: rgb(255, 255, 255);
+                border-radius: 1.25em;
+                padding: 1.5em;
+                animation: 1s cubic-bezier(0.47, 0, 0.745, 0.715) .7s 1 glow-load;
+                animation-fill-mode: forwards;
+            }
+
+            form label {
+                color: rgb(166 162 162);
+            }
+
+            option,
+            select,
+            input,
+            .textarea-div textarea {
+                background: #ffffff;
+                color: rgb(59, 57, 57);
+                font-size: 20px;
+            }
+
+            .form-header {
+                text-align: center;
+                font-size: 28px;
+                padding: 0;
+                margin-bottom: 2.25em;
+                color: #000000;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 0.35em;
+                margin-top: 0.35em;
+            }
+
+            input:not(.btn),
+            select {
+                padding: 0.625em 1em;
+                width: 100%;
+                height: 50px;
+                outline: 0;
+                margin-bottom: 1.25em;
+                border-radius: 1.25em;
+                border: 0;
+            }
+
+            .textarea-div {
+                width: 100%;
+            }
+
+            textarea {
+                padding: 10px;
+                width: 100%;
+                outline: 0;
+                margin-bottom: 20px;
+                border-radius: 20px;
+                border: 0;
+                font-size: 14px;
+                height: 100px;
+            }
+
+            .btn-container {
+                margin: auto;
+                padding-bottom: 1em;
+            }
+
+            .form-btn {
+                background: rgb(12, 11, 11);
+                border: 5px;
+                border-color: #000000;
+                margin-top: 17em;
+                margin-left: -26em;
+                font-size: 20px;
+                padding: 0.8em;
+            }
+
+            .btn-glow {
+                animation: .5s ease-out 0s 1 blur-load;
+                border-radius: 2em;
+                color: white;
+                transition: .4s;
+            }
+
+            .btn-glow:hover {
+                box-shadow: 0px 0px 10px #ffffff;
+            }
+
+            :hover {
+                background: #181b1d;
+                cursor: pointer;
+            }
+
+            .form-container input:focus,
+            .form-container select:focus,
+            .form-container textarea:focus {
+                animation: continuous-glow 800ms ease-out infinite alternate;
+                /* box-shadow: 0 0 5px #000000, inset 0 0 5px #140f0a, 0 2px 0 #000; */
+                color: rgb(2, 2, 2);
+            }
+
+            @media only screen and (min-width: 35.8em) {
+                .form {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
+
+                .form-item {
+                    width: 45%;
+                }
+
+                .form-container {
+                    padding: 5em 0;
+                    width: 80%;
+                }
+            }
+
+            @media only screen and (min-width: 60.625em) {
+                .form-container {
+                    padding: 8em 0;
+                    width: 70%;
+                }
+            }
+
+            img{
+                width:300px;
+            }
+
+            .dp__input_icon {
+                cursor: pointer;
+                position: absolute;
+                top: 40%;
+                left: 420px;
+                transform: translateY(-50%);
+                color: var(--dp-icon-color);
+            }
+
+            .dp__clear_icon {
+                position: absolute;
+                top: 41%;
+                right: -8px;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: var(--dp-icon-color);
+            }
+
+            /** {*/
+            /*    box-sizing: border-box;*/
+            /*}*/
+
+            /*!* basic stylings ------------------------------------------ *!*/
+            /*body {*/
+            /*    background: url(https://scotch.io/wp-content/uploads/2014/07/61.jpg);*/
+            /*}*/
+
+            /*.container {*/
+            /*    font-family: 'Roboto';*/
+            /*    width: 900px;*/
+            /*    margin: 30px auto 0;*/
+            /*    display: block;*/
+            /*    background: #FFF;*/
+            /*    padding: 10px 50px 50px;*/
+            /*}*/
+
+            /*h2 {*/
+            /*    text-align: center;*/
+            /*    margin-bottom: 50px;*/
+            /*}*/
+
+            /*h2 small {*/
+            /*    font-weight: normal;*/
+            /*    color: #888;*/
+            /*    display: block;*/
+            /*}*/
+
+            /*.footer {*/
+            /*    text-align: center;*/
+            /*}*/
+
+            /*.footer a {*/
+            /*    color: #53B2C8;*/
+            /*}*/
+
+            /*!* form starting stylings ------------------------------- *!*/
+            /*.group {*/
+            /*    position: relative;*/
+            /*    margin-bottom: 45px;*/
+            /*}*/
+
+            /*input {*/
+            /*    font-size: 18px;*/
+            /*    padding: 10px 10px 10px 5px;*/
+            /*    display: block;*/
+            /*    width: 657px;*/
+            /*    border: none;*/
+            /*    border-bottom: 1px solid #757575;*/
+            /*}*/
+
+            /*input:focus {*/
+            /*    outline: none;*/
+            /*}*/
+
+            /*!* LABEL ======================================= *!*/
+            /*label {*/
+            /*    color: #999;*/
+            /*    font-size: 18px;*/
+            /*    font-weight: normal;*/
+            /*    position: absolute;*/
+            /*    pointer-events: none;*/
+            /*    left: 5px;*/
+            /*    top: 10px;*/
+            /*    transition: 0.2s ease all;*/
+            /*    -moz-transition: 0.2s ease all;*/
+            /*    -webkit-transition: 0.2s ease all;*/
+            /*}*/
+
+            /*!* active state *!*/
+            /*input:focus~label,*/
+            /*input:valid~label {*/
+            /*    top: -20px;*/
+            /*    font-size: 14px;*/
+            /*    color: #5264AE;*/
+            /*}*/
+
+            /*!* BOTTOM BARS ================================= *!*/
+            /*.bar {*/
+            /*    position: relative;*/
+            /*    display: block;*/
+            /*    width: 657px;*/
+            /*}*/
+
+            /*.bar:before,*/
+            /*.bar:after {*/
+            /*    content: '';*/
+            /*    height: 2px;*/
+            /*    width: 0;*/
+            /*    bottom: 1px;*/
+            /*    position: absolute;*/
+            /*    background: #5264AE;*/
+            /*    transition: 0.2s ease all;*/
+            /*    -moz-transition: 0.2s ease all;*/
+            /*    -webkit-transition: 0.2s ease all;*/
+            /*}*/
+
+            /*.bar:before {*/
+            /*    left: 50%;*/
+            /*}*/
+
+            /*.bar:after {*/
+            /*    right: 50%;*/
+            /*}*/
+
+            /*!* active state *!*/
+            /*input:focus~.bar:before,*/
+            /*input:focus~.bar:after {*/
+            /*    width: 50%;*/
+            /*}*/
+
+            /*!* HIGHLIGHTER ================================== *!*/
+            /*.highlight {*/
+            /*    position: absolute;*/
+            /*    height: 60%;*/
+            /*    width: 100px;*/
+            /*    top: 25%;*/
+            /*    left: 0;*/
+            /*    pointer-events: none;*/
+            /*    opacity: 0.5;*/
+            /*}*/
+
+            /*!* active state *!*/
+            /*input:focus~.highlight {*/
+            /*    -webkit-animation: inputHighlighter 0.3s ease;*/
+            /*    -moz-animation: inputHighlighter 0.3s ease;*/
+            /*    animation: inputHighlighter 0.3s ease;*/
+            /*}*/
+
+            /*!* ANIMATIONS ================ *!*/
+            /*@-webkit-keyframes inputHighlighter {*/
+            /*    from {*/
+            /*        background: #5264AE;*/
+            /*    }*/
+
+            /*    to {*/
+            /*        width: 0;*/
+            /*        background: transparent;*/
+            /*    }*/
+            /*}*/
+
+            /*@-moz-keyframes inputHighlighter {*/
+            /*    from {*/
+            /*        background: #5264AE;*/
+            /*    }*/
+
+            /*    to {*/
+            /*        width: 0;*/
+            /*        background: transparent;*/
+            /*    }*/
+            /*}*/
+
+            /*@keyframes inputHighlighter {*/
+            /*    from {*/
+            /*        background: #5264AE;*/
+            /*    }*/
+
+            /*    to {*/
+            /*        width: 0;*/
+            /*        background: transparent;*/
+            /*    }*/
+            /*}*/
+        </style>
+    </head>
+    <body>
+    <div class="container" id="app">
+        <section class="form-container">
+
+            <v-form action="../../item/items" method="post"
+                    v-slot="{ errors }" @submit.prevent="onSubmit"
+                  enctype="multipart/form-data">
+
+                <h1 class="form-header">修改商品資訊</h1>
+                <div class="form">
+                    <div class="form-item form-item1">
+                        <label>商品名稱</label>
+                        <v-field type="text" :rules="checkMin" name="item_name" v-model="item.itemName"/></v-field>
+                        <error-message name="item_name" class="invalid-feedback"></error-message>
+                    </div>
+
+                    <div class="form-item form-item1">
+                        <label>商品庫存</label>
+                        <v-field  type="number" name="item_amount" v-model="item.itemAmount" /></v-field>
+                        <error-message name="item_amount" class="invalid-feedback"></error-message>
+                    </div>
+
+                    <div class="form-item form-item1">
+                        <label>商品價錢</label>
+                        <v-field  name="item_price" type="number" v-model="item.itemPrice" /></v-field>
+                        <error-message name="item_price" class="invalid-feedback"></error-message>
+                    </div>
+
+
+                    <div class="form-item form-item3">
+                        <label>商品狀態</label>
+                        <select v-model="item.itemStatus" name="item_status">
+                            <option value=0  :selected="item.itemStatus===0">
+                               上架
+                            </option>
+                            <option value=1>
+                                下架
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-item form-item1" >
+                        <label>上架日期</label>
+                        <Datepicker v-model="item.itemDate" name="item_date"></Datepicker>
+                    </div>
+
+                    <div class="form-item form-item1" >
+                        <label>下架日期</label>
+                        <Datepicker v-model="item.itemEnddate" name="item_enddate"></Datepicker>
+                    </div>
+
+                    <div class="form-item form-item3">
+                        <label>商品種類</label>
+                        <select  v-model="item.itemtId"  name="itemtypeno" as="select">
+                            <option v-for="t in type" :value="t.itemtId" :selected="item.itemtId===t.itemtId">
+                                {{t.itemtName}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-item form-item1">
+                        <label>新增圖片</label>
+                        <input type="file" name="item_photo" size="45" multiple="multiple"  />
+                    </div>
+
+                    <div class="textarea-div form-item1">
+                        <label>商品描述</label>
+                        <textarea  type="text" v-model="item.itemContent"
+                          name="item_content"  placeholder="請輸入商品描述"></textarea>
+                    </div>
+
+
+                    <div class="btn-container">
+                        <button  class="btn btn-glow form-btn" @click="onSubmit()">送出修改</button>
+<!--                        <input  class="btn btn-glow form-btn" type="submit" value="送出修改" />-->
+                    </div>
+
+                </div>
+                <input type="hidden" name="item_id" :value="item.itemId">
+                <input type="hidden" name="action" value="update">
+
+
+            <div >
+                <label>商品圖片</label>
+                <span v-for="photo in photos">
+                              <img  :src="`data:image/png;base64,${photo.photo}`" >
+                              <button @click="onDeleteButtonClick(photo.ipId)">刪除</button>
+                          </span>
+
+            </div>
+
+
+            </v-form>
+
+        </section>
+    <!--    <h2>修改商品<small>Inputs</small></h2>-->
+
+    <!--    <form class="row g-7" style="justify-content:space-between;">-->
+
+    <!--        <div class="group col-md-6">-->
+    <!--            <input type="text" required  v-model="item.itemName">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品名稱</label>-->
+    <!--        </div>-->
+
+    <!--        <div class="group col-md-6">-->
+    <!--            <input type="text" required v-model="item.itemAmount">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品數量</label>-->
+    <!--        </div>-->
+
+    <!--        <div class="group col-12">-->
+    <!--            <input type="text" required v-model="item.itemPrice">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品價格</label>-->
+    <!--        </div>-->
+
+    <!--        <div class="group col-12">-->
+    <!--            <input type="text" required v-model="item.itemtId">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品種類</label>-->
+    <!--        </div>-->
+
+
+    <!--        <div class="group col-12">-->
+    <!--            <input type="text" required v-model="item.itemContent">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品描述</label>-->
+    <!--        </div>-->
+
+    <!--        <div class="group col-12">-->
+    <!--            <input type="text" required v-model="item.itemStatus">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>商品狀態</label>-->
+    <!--        </div>-->
+
+
+    <!--        <div class="group col-12">-->
+    <!--            <input id="beginDate" type="date" class="datepicker" v-model="item.itemDate">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>上架日期</label>-->
+    <!--        </div>-->
+
+
+    <!--        <div class="group col-12">-->
+
+
+    <!--            <input id="endDate" type="date" class="datepicker" v-model="item.itemEnddate">-->
+    <!--            <span class="highlight"></span>-->
+    <!--            <span class="bar"></span>-->
+    <!--            <label>下架日期</label>-->
+    <!--        </div>-->
+
+    <!--        <div class="group col-12">-->
+    <!--            <select>-->
+    <!--                <option v-for="t in type" value="i.itemtId" :selected="item.itemtId === t.itemtId">-->
+    <!--                    {{t.itemtName}}-->
+    <!--                </option>-->
+
+
+    <!--            </select>-->
+    <!--        </div>-->
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+        <script>
+            const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate
+            const { setLocale, loadLocaleFromURL, localize } = VeeValidateI18n
+            Object.keys(VeeValidateRules).forEach(rule => {
+                if (rule !== 'default') {
+                    VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+                }
+            });
+            loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.5.7/dist/locale/zh_TW.json')
+            VeeValidate.configure({
+                generateMessage: VeeValidateI18n.localize('zh_TW'),
+                validateOnInput: true,
+            });
+            Vue.createApp({
+                data(){
+
+
+
+                    return {
+                        item:{},
+                        type:[],
+                        photos:[],
+                        pjName:'',
+                        selected:0
+                    }
+                },methods:{
+
+                    checkMin(value){
+                        return (value.length>=2) ? true : "此欄位必填,最小要輸入兩個字"
+
+                    },
+                    onSubmit(){
+                        alert("123")
+                        axios.post(this.pjName+"/item/items",this.item)
+                            .then(()=>{
+                                location="listAllitems.html"
+                            })
+                    },
+                    onDeleteButtonClick(ipId){
+                    const result=confirm("確定刪除此張照片嗎");
+                     if(result){
+
+                          let pjName=getProjectName();
+                         axios.get(pjName+"/item/GetItemPhoto?action=DeletePhoto&ip_id="+ipId)
+                             .then((resp)=>{
+
+                                 alert(resp.data.successful? "刪除成功":"刪除失敗"),
+                                     location.reload()
+                             })
+                             // .then((d)=>{
+                             //     alert(d.successful? "刪除成功":"刪除失敗"),
+                             //         location.reload()
+                             //     }
+                             // )
+                }
+            }
+
+
+                },
+                components:{
+                        Datepicker:VueDatePicker,
+                        VForm: Form,
+                        VField: Field,
+                        ErrorMessage,
+
+                },
+                mounted(){
+
+                    let itemId=sessionStorage.getItem("itemId");
+                    let pjName=getProjectName();
+                    // http://localhost:8080/BA_REI
+                    axios.get(pjName+'/item/items?action=getOne_For_DisplayJS&itemId='+itemId)
+                        .then((resp)=>{
+                            this.item=resp.data;
+                            this.selected=resp.data.itemtId
+                            console.log(resp.data);
+
+                        }
+                        )
+
+                    axios.get(pjName+'/item/type?action=getAllType')
+                        .then((resp)=>{
+                            this.type=resp.data;
+
+                            console.log(resp.data);
+                        })
+
+
+
+                    axios.get(pjName+"/item/items?action=GetAllPhotos&item_id="+itemId)
+                            .then((resp)=>{
+                                console.log(resp.data)
+                                this.photos=resp.data;
+
+                    })
+
+                }
+            }).mount("#app");
+
+
+
+            function getProjectName(){
+
+                let path = window.location.pathname;
+                let webCtx = path.substring(0, path.indexOf('/', 1));
+                this.pjName=webCtx;
+                return webCtx;
+            }
+
+
+        </script>
+    </body>
+    </html>

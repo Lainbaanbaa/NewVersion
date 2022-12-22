@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!--     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+ -->
+
+<!-- import bootstrap -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+
+<!-- improt font-style -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap"
+	rel="stylesheet">
+
+<!-- import css stylesheet -->
+<!--<link rel="stylesheet" href="./css/style.css">-->
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
+<!-- import jquery-3.6.0 -->
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- import slick-carousel -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+
+<!-- import icon -->
+<script src="https://kit.fontawesome.com/b5ef6b60f3.js"
+	crossorigin="anonymous"></script>
+
+	<!-- 按鈕 -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
+<!--	sweetalert-->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<style>
+.btn {
+	background: #f05f5c;
+	color: white;
+	padding: 9px 26px;
+	border-radius: 20px;
+}
+
+img {
+	max-width: 100%;
+}
+
+/* 團購主相關 */
+.group_master_link {
+	color: #4f4f4f;
+	text-decoration: none;
+}
+
+.group_master_img {
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	margin-right: 10px;
+}
+
+/* 價格樣式 */
+.original_price {
+	color: #929292;
+	font-size: 70%;
+	font-style: italic;
+	text-decoration: line-through;
+}
+
+.discounted_price {
+	color: #f05f5c;
+	font-weight: bold;
+}
+
+/* 推薦商品樣式 */
+#recommend {
+	border-top: solid 1px #c9c9c9;
+	padding: 80px 0;
+	background: rgba(209, 79, 159, 0.063);
+}
+
+#recommend h3 {
+	margin-bottom: 0px;
+}
+
+#recommend.upper {
+	position: relative;
+}
+
+#recommend span {
+	padding: 6px 15px;
+	border-radius: 20px;
+}
+
+#recommend .outer {
+	margin-top: 10px;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0);
+	padding: 10px;
+}
+
+#recommend .inner {
+	background: rgb(255, 255, 255);
+	padding: 40px 20px 40px 20px;
+	box-shadow: 1px 0 5px 5px #4f4f4f30;
+	border-radius: 5px;
+}
+
+#recommend .lower {
+	padding: 20px 20px 20px 20px;
+}
+
+#recommend a {
+	color: black;
+	text-decoration: none;
+}
+
+#recommend .group_master_link:hover {
+	color: #929292;
+}
+
+#recommend h4 {
+	padding: 6px 15px;
+	border-radius: 20px;
+}
+
+#recommend h4:hover {
+	color: #929292;
+}
+
+.innertext {
+	height: 100px;
+}
+
+img:hover {
+	cursor: pointer;
+}
+
+/*按鈕樣式*/
+.ghost-button {
+	color: #009688;
+	background: #fff;
+	border: 1px solid #009688;
+	font-size: 17px;
+	padding: 7px 12px;
+	font-weight: normal;
+	margin: 6px 0;
+	margin-right: 12px;
+	display: inline-block;
+	text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+	min-width: 120px;
+
+
+}
+
+.ghost-button:hover, .ghost-button:active {
+	color:#fff;
+	background:#009688;
+}
+
+.pageParent{
+
+	display: flex;
+	/* 水平置中 */
+	justify-content: center;
+	/* 垂直置中 */
+	align-items: center;
+
+
+}
+
+
+
+
+
+</style>
+</head>
+
+<body>
+<!--	<header>-->
+
+<!--		&lt;!&ndash; 導覽列 &ndash;&gt;-->
+<!--		<nav class="navbar navbar-expand-lg">-->
+<!--			<div class="container-fluid">-->
+<!--				<a class="navbar-brand" href="#"> &lt;!&ndash; 網站 logo &ndash;&gt; <img-->
+<!--						src="../../resources/static/image/Ba-Rei-logo3.png" alt="Logo" width="200px"-->
+<!--						height="10%" class="d-inline-block align-text-top">-->
+<!--				</a>-->
+
+<!--				&lt;!&ndash; 右側 toggle 按鈕 &ndash;&gt;-->
+<!--				<button class="navbar-toggler" type="button"-->
+<!--					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"-->
+<!--					aria-controls="navbarSupportedContent" aria-expanded="false"-->
+<!--					aria-label="Toggle navigation">-->
+<!--					<span class="navbar-toggler-icon"></span>-->
+<!--				</button>-->
+
+<!--				&lt;!&ndash; 導覽列內容 &ndash;&gt;-->
+<!--				<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--					<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--						<li class="nav-item"><a class="nav-link active"-->
+<!--							aria-current="page" href="/index.html">首頁</a></li>-->
+<!--						<li class="nav-item"><a class="nav-link" href="/shop.html">毛孩の商城</a>-->
+<!--						</li>-->
+<!--						<li class="nav-item"><a class="nav-link" href="#">團購底加啦</a></li>-->
+<!--						<li class="nav-item"><a class="nav-link" href="#">家長討論區</a></li>-->
+<!--						<li class="nav-item dropdown"><a-->
+<!--							class="nav-link dropdown-toggle" href="#" role="button"-->
+<!--							data-bs-toggle="dropdown" aria-expanded="false"> <i-->
+<!--								class="fa-regular fa-user"></i> 會員中心-->
+<!--						</a>-->
+<!--							<ul class="dropdown-menu">-->
+<!--								<li><a class="dropdown-item" href="#">成為會員 / 登入會員</a></li>-->
+<!--								<li><a class="dropdown-item" href="#">查看購物車</a></li>-->
+<!--								<li><a class="dropdown-item" href="#">追蹤訂單</a></li>-->
+<!--								<li><a class="dropdown-item" href="#">團購訂單</a></li>-->
+<!--								<li>-->
+<!--									<hr class="dropdown-divider">-->
+<!--								</li>-->
+<!--								<li><a class="dropdown-item" href="#">會員中心首頁</a></li>-->
+<!--							</ul></li>-->
+<!--						<li class="nav-item dropdown"><a-->
+<!--							class="nav-link dropdown-toggle" href="#" role="button"-->
+<!--							data-bs-toggle="dropdown" aria-expanded="false"> <i-->
+<!--								class="fa-regular fa-paper-plane"></i> 客服專區-->
+<!--						</a>-->
+<!--							<ul class="dropdown-menu">-->
+<!--								<li><a class="dropdown-item" href="#">關於我們</a></li>-->
+<!--								<li><a class="dropdown-item" href="#">常見問題 Q&A</a></li>-->
+<!--								<li>-->
+<!--									<hr class="dropdown-divider">-->
+<!--								</li>-->
+<!--								<li><a class="dropdown-item" href="#">客服專區首頁</a></li>-->
+<!--							</ul></li>-->
+
+<!--&lt;!&ndash;						/種類篩選/&ndash;&gt;-->
+<!--						<li class="nav-item dropdown"><a-->
+<!--								class="nav-link dropdown-toggle" href="#" role="button"-->
+<!--								data-bs-toggle="dropdown" aria-expanded="false"> <i-->
+<!--								class="fa-regular fa-paper-plane"></i> 商品類別-->
+<!--						</a>-->
+<!--							<ul class="dropdown-menu">-->
+<!--								<li><a class="dropdown-item" href="#">關於我們</a></li>-->
+<!--								<li><a class="dropdown-item" href="#">常見問題 Q&A</a></li>-->
+<!--								<li>-->
+<!--									<hr class="dropdown-divider">-->
+<!--								</li>-->
+<!--								<li><a class="dropdown-item" href="#">客服專區首頁</a></li>-->
+<!--							</ul></li>-->
+<!--					</ul>-->
+<!--					<div class="d-flex" role="search" >-->
+<!--&lt;!&ndash;						onchange="search(this.value)&ndash;&gt;-->
+<!--						<input class="form-control me-2" type="text" id="keyWords"-->
+<!--							placeholder="今天你想來點..." aria-label="Search" id="search_bar" >-->
+<!--						<button class="btn btn-outline-success" type="submit" onclick="search()"-->
+<!--							id="search_btn" >Search</button>-->
+<!--					</div>-->
+<!--				</div>-->
+
+<!--			</div>-->
+<!--		</nav>-->
+<!--	</header>-->
+
+	<main>
+		<article id="recommend">
+			<section id="shop_best_seller">
+				<div class="col-md-12 text-center">
+					<h1>
+						熱銷排行榜<i class="fa-solid fa-fire" style="color: red;"></i>
+					</h1>
+				</div>
+				<div class="container">
+
+					<div id="test" class="row"></div>
+
+				</div>
+			</section>
+		</article>
+
+		<div id="button" class="pageParent">
+		</div>
+
+
+	</main>
+	<!-- footer 網站資訊內容 -->
+<!--	<footer>-->
+<!--		<div class="container">-->
+<!--			<div class="row">-->
+<!--				<div class="col-md-4 text-start">-->
+<!--					<a href="#"> <img src="../../resources/static/image/Ba-Rei-logo3.png"-->
+<!--						alt="ba-rei_logo">-->
+<!--						<h3>關於我們</h3>-->
+<!--					</a>-->
+<!--					<p>「BA-REI」這個名字的由來是一位鏟屎官被自己的喵主人一掌打在臉上，因而得名，這個名字象徵著我們替自己心愛的毛孩無怨無悔付出的心，全天下鏟屎官們共勉之。</p>-->
+<!--					<span> </span>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</footer>-->
+
+
+
+
+
+
+<!-- import bootstrap 5.2.1 -->
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+		crossorigin="anonymous"></script>
+
+<!-- import css  -->
+<link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+<!--  NavBar  -->
+<script src="../../resources/static/js/navbar.js"></script>
+<!--footer-->
+<script src="../../resources/static/js/footer.js"></script>
+
+
+
+
+	<script>
+
+
+
+    getAllItem();
+    async function getAllItem(pageNumber=1) {
+		let pjName=getProjectName();
+		//res:回應物件
+        let res = await fetch(`${pjName}/item/items?action=GetAll_For_Display_JS&pageNumber=${pageNumber}`, { method: 'get' });
+		let items = await res.json();  //將回應本體中json格式的字串轉成javascript陣列
+
+
+		$("#test").html('');
+
+
+
+		items.forEach(item=>{
+			// const image = item.itemPhoto
+			//
+			// function base64(image){
+			// 	let binary ="";
+			// 	const bytes = new Uint8Array(image)
+			// 	const len =bytes.byteLength;
+			// 	for(let i =0; i<len;i++){
+			// 		binary += String.fromCharCode(bytes[i])
+			// 	}
+			// 	return window.btoa(binary)
+			// }
+			// let photo = base64(image)
+			// photo="data:image/png;base64,"+photo
+		 $("#test").append(`
+				
+				 <div class="col-md-3">
+		                <div class="outer">
+		                    <div class="upper"> <img src="data:image/png;base64,${item.itemPhoto}"  onclick="showItem(${item.itemId})" class="card-img-top">
+		                        <div class="innertext">
+		            <a href="#">
+		                            <h4>${item.itemName}</h4>
+		                        </div>
+		                    </div>
+		                    <div class="lower">
+                            <span>NT${item.itemPrice}</span>
+		            </a>
+
+		                    </div>
+		                </div>
+		        </div>
+		 `)
+			
+		
+			
+		})
+
+		getCount();
+		
+    }
+    
+    async function showItem(itemId){
+    	sessionStorage.setItem('itemId', itemId);  
+    	location.assign("item_detail.html");
+    	/* location = "item_detail.html"; */
+
+	}
+
+
+	async function getCount(){
+		let pjName=getProjectName();
+		$("#button").html('');
+		let res = await fetch(pjName+"/item/items?action=GetCount");
+		// let res = await fetch("/BA_REI/item/items?action=GetCount");
+		let item = await res.json();//將回應本體中json格式的字串轉成javsascript物件
+		let count =item.count;
+		let page=count%8===0? count/8:count/8+1;
+		for(let i =1;i<=page;i++){
+			$("#button").append(
+				`<button class="ghost-button" target="_blank" onclick="getAllItem(${i})">${i}</button>`
+			)
+		}
+	}
+
+	document.getElementById("keyWords").addEventListener('keypress',e=>{
+		if(e.keyCode===13){
+			search();
+		}
+	})
+	async function search(){
+		let keyWords=document.getElementById("keyWords").value;
+		let pjName=getProjectName();
+		$("#test").html('');
+		let res = await fetch(pjName+"/item/items?action=search&keyWords="+keyWords);
+		let items = await res.json();
+		console.log(items)
+		items.forEach(item=>{
+
+
+			$("#test").append(`
+
+				 <div class="col-md-3">
+		                <div class="outer">
+		                    <div class="upper"> <img src=data:image/jpeg;base64,${item.itemPhoto}  onclick="showItem(${item.itemId})" class="card-img-top">
+		                        <div class="innertext">
+		            <a href="#">
+		                            <h4>${item.itemName}</h4>
+		                        </div>
+		                    </div>
+		                    <div class="lower">
+                            <span>NT${item.itemPrice}</span>
+		            </a>
+
+		                    </div>
+		                </div>
+		        </div>
+		 `)
+
+
+
+		})
+
+	}
+
+	function getProjectName(){
+		let path = window.location.pathname;
+		let webCtx = path.substring(0, path.indexOf('/', 1));
+		return webCtx;
+	}
+
+    
+</script>
+
+</body>
+
+</html>

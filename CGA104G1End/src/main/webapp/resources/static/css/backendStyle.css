@@ -1,0 +1,93 @@
+/* 設定背景 */
+section {
+	height: 100%; 
+    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+    background-color: #FFDEE9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+}
+        
+/* 設定區塊 */
+.titleBlock{
+	text-align:center;
+	font-size: 24px;
+	font-weight: 700;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.btnTitle {
+	width: 1010px;
+	text-align: center;
+	margin-top: 10px;
+}   
+
+.subBlock {
+	text-align: center;
+}     
+        
+/* 設定選擇、填入欄、按鈕         */
+select, input {
+    	width: 300px;
+    	height: 30px;
+    	border-radius: 20px;
+    	border: none;
+    	text-align: center;
+    }
+    
+select:focus, input:focus {
+	border: 2px solid pink !important;
+}   
+
+.btnIn {
+	width: 200px;
+	border-radius: 20px !important;
+}   
+
+.btnSub {
+	width: 200px;
+	border-radius: 20px !important;
+}  
+
+.btnSmall {
+	width: 60px;
+}
+
+.btnL {
+   	width: 180px;
+   	height: 30px;
+   	border-radius: 20px !important;
+    }
+
+/* 設定表格 */
+
+th{
+  	background-color: black;
+  }
+  
+tr{
+  	text-align: center;
+  }
+  
+td{
+  	color: black;
+  }
+
+/* 表格交互變色(選用) */
+/*
+tr:nth-child(even) {
+	background-color: rgba(255,255,255,0.4);
+}
+*/
+
+/* 登入高度調節(選用) */
+/*
+  .btn-warning{
+  	margin-top: 15px;
+  }
+  
+  .btnTitle{
+  	margin-top: 25px;
+  }
+*/

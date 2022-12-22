@@ -1,0 +1,67 @@
+body {
+    background: #eee;
+}
+
+.couponpageimg {
+    opacity: 95%;
+    position: fixed;
+    left: 10%;
+    background-size: contain;
+    background-repeat: repeat-y;
+    max-width: 100%;
+    background-attachment: scroll;
+    transform: scale(1.221);
+    margin-bottom: 10%;
+
+}
+@media (max-width: 1000px) {
+    .couponpageimg {
+         transform: scale(5);
+    }
+}
+
+.card {
+    opacity: 90%;
+    width: 400px;
+    padding: 10px;
+    border-radius: 20px;
+    background: orange;
+    border: none;
+    color: #330303;
+    height: 270px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    height: 50vh;
+}
+
+.card h1 {
+    font-size: 48px;
+    /*margin-bottom: 0;*/
+}
+
+.card span {
+    font-size: 18px;
+}
+
+.image {
+    position: absolute;
+    opacity: .1;
+    left: 0;
+    top: 0;
+}
+
+.image2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    opacity: .1;
+}
+
+#couponBody {
+
+}

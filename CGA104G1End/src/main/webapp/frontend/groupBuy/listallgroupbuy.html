@@ -1,0 +1,682 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>listallgroupbuy</title>
+
+<!-- import bootstrap 5.2.1 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+
+<!-- import font-style -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap"
+	rel="stylesheet">
+
+ <!--item_detail.css	-->
+ <link rel="stylesheet" type="text/css" href="../../resources/static/css/item_detail.css">
+<!-- import font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- import css stylesheet -->
+<link rel="stylesheet" href="../../resources/static/css/plugins.css">
+<link rel="stylesheet" href="../../resources/static/css/style.css">
+<link rel="stylesheet" href="../../resources/static/css/responsive.css">
+<!-- import jquery-3.6.0 -->
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- import icon -->
+<script src="https://kit.fontawesome.com/b5ef6b60f3.js"
+	crossorigin="anonymous"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/qs/6.11.0/qs.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+<style>
+body * {
+    z-index: 1;
+}
+body::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, .3);
+}
+
+html {
+	font-size: 22px;
+}
+
+.home_main {
+	z-index: -999999;
+	position: relative;
+	transition: 3s;
+	opacity: 30%;
+	height: 4160px;
+	width: auto;
+	background-image:
+		url('../../resources/static/image/andrew-s-ouo1hbizWwo-unsplash.jpg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-color: transparent;
+	transform: scale(1.111);
+	margin-bottom: 10%;
+}
+
+body {
+	background: #eee;
+}
+
+footer {
+	background: #fbaa70;
+	padding: 50px 10px;
+	font-size: 18px;
+}
+
+.badge {
+	padding-left: 9px;
+	padding-right: 9px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+}
+
+.label-warning[href], .badge-warning[href] {
+	background-color: #c67605;
+}
+
+#lblCartCount {
+	font-size: 12px;
+	background: #ff0000;
+	color: #fff;
+	padding: 0 5px;
+	vertical-align: top;
+	margin-left: -10px;
+}
+
+/* footer 樣式 */
+footer {
+	border-top: solid 1px #c9c9c9;
+	padding: 80px 0px;
+}
+
+footer a {
+	color: black;
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: #929292;
+	opacity: 60%;
+}
+
+footer {
+	border-top: solid 1px #c9c9c9;
+	padding: 80px 0;
+	background-color: white;
+}
+
+footer img {
+	width: 110px;
+	margin-bottom: 0;
+}
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu {
+		display: none;
+	}
+	.navbar .nav-item:hover .nav-link {
+
+	}
+	.navbar .nav-item:hover .dropdown-menu {
+		display: block;
+	}
+	.navbar .nav-item .dropdown-menu {
+		margin-top: 0;
+	}
+}
+
+/* 設定頂端表單區域 */
+.titleForm {
+	width: 33%;
+	height: 30px;
+	display: inline-block;
+}
+
+.btnTitle {
+	width: 99%;
+}
+
+/* 設定商品區域 */
+
+.product-image, .product-details, .product-price, .btn-addto-cart {
+	display: inline-block;
+}
+
+.card{
+ 	width: 33%;
+}
+
+.brand-name{
+	min-height: 50px;
+	font-size: 12px !important;
+}
+
+.old-price {
+	font-size: 14px !important;
+}
+
+.price {
+	font-size: 18px !important;
+}
+
+.page-link {
+	min-height: 55px !important;
+}
+</style>
+</head>
+
+<body>
+	<!-- <div class="home_main"></div> -->
+
+
+
+	<main>
+<div class="container">
+			<!-- 新增團購團申請測試區 -->
+			<div class="headBlock">
+			<form action="/CGA104G1/GroupBuyStartNewApplyListServlet" class="titleForm">
+				<!-- 		<input type="hidden" name="gbitem_id"  value="${Group_Buy_ItemVO.gbitem_id}">  -->
+				<input type="hidden" name="gbitem_id" value="2">
+ 				<input type="hidden" name="action" value="insert">
+				<button class="btn btn-primary btnTitle" type="submit">開新團購</button>
+			</form>
+			<form action="/CGA104G1/GroupBuyMasterApplyListServlet" class="titleForm">
+				<!-- 		<input type="hidden" name="gbitem_id"  value="${Group_Buy_ItemVO.gbitem_id}">  -->
+				 <input type="hidden" name="action" value="listAllMyGroupBuy">
+				<button class="btn btn-primary btnTitle" type="submit">我的團購團</button>
+			</form>
+			<FORM METHOD="post" ACTION="/CGA104G1/Group_JoinServlet" name="form1" class="titleForm">
+						<input type="hidden" name="action" value="getOne_Display_ByMem">
+						<button class="btn btn-primary btnTitle" btnTitle type="submit">參團資料查詢</button>
+			</FORM>
+			</div>
+			<!-- 新增團購團申請測試區 -->
+
+			<div class="card-columns">
+				<div class="row g-3" id="content"></div>
+			</div>
+
+
+
+
+			<div class="shop-bottom-bar d-flex align-items-center mt-3">
+				<div class="ms-auto">
+					<ul class="pagination" id="pageid">
+
+					</ul>
+				</div>
+			</div>
+			</div>
+	</main>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+	<!-- import bootstrap 5.2.1 -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+		crossorigin="anonymous"></script>
+
+	<script src="../../resources/static/js/cart.js"></script>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<!--  NavBar  -->
+	<script src="../../resources/static/js/navbar.js"></script>
+	<!--  Footer  -->
+	<script src="../../resources/static/js/footer.js"></script>
+</body>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+	var gbitemStatus = [ "超出團購期限下架", "上架中", "無庫存", "有庫存" ];
+	var txt = "";
+</script>
+
+
+
+
+
+
+<script>
+
+let jsonUrl = "/CGA104G1/GroupBuyGetAllJSONServlet";
+    function init(){
+    const content = document.getElementById('content');
+    const pageid = document.getElementById('pageid');
+    let jsonData = {};
+
+    fetch(jsonUrl, { method: 'get' })
+      .then((response) => {
+        return response.json();
+      }).then((json) => {
+        jsonData = json;
+//         console.log(jsonData)
+
+        let GroupBuyVOs = jsonData.GroupBuyVOs;
+        let GroupBuyItemVOs = jsonData.GroupBuyItemVOs;
+
+        pagination(GroupBuyVOs, 1);
+      })
+
+    function pagination(jsonData, nowPage) {
+      const dataTotal = jsonData.length;
+
+      // 設定要顯示在畫面上的資料數量
+      // 預設每一頁只顯示 6 筆資料。
+      const perpage = 9;
+      const pageTotal = Math.ceil(dataTotal / perpage);
+      let currentPage = nowPage;
+      if (currentPage > pageTotal) {
+        currentPage = pageTotal;
+      }
+      const minData = (currentPage * perpage) - perpage + 1;
+      const maxData = (currentPage * perpage);
+
+      const data = [];
+      jsonData.forEach((item, index) => {
+        const num = index + 1;
+        if (num >= minData && num <= maxData) {
+          data.push(item);
+        }
+      })
+      const page = {
+        pageTotal,
+        currentPage,
+        hasPage: currentPage > 1,
+        hasNext: currentPage < pageTotal,
+      }
+      displayData(data);
+    }
+
+    function displayData(data) {
+      let str = '';
+      data.forEach((groupBuy) => {
+
+        str += `
+        <div class="card">
+        <div class="grid-products">
+						<div class="item">
+							<div class="product-image item col-lg-4 col-md-4 col-6">
+								<a href="/CGA104G1/frontend/groupBuy/OneGroupBuyItem.html?gb_id=${groupBuy.gb_id}&gbitem_id=${groupBuy.gbitem_id}" class="product-img">
+									<img
+									class=""
+									data-src="/CGA104G1/groupBuyItemPicture/groupBuyItemPictureGetOne.do?gbitem_id=${groupBuy.gbitem_id}"
+									src="/CGA104G1/groupBuyItemPicture/groupBuyItemPictureGetOne.do?gbitem_id=${groupBuy.gbitem_id}">
+
+									<img
+									class="hover lazyload"
+									data-src="/CGA104G1/groupBuyItemPictureGetSecond?gbitem_id=${groupBuy.gbitem_id}"
+									src="/CGA104G1/groupBuyItemPictureGetSecond?gbitem_id=${groupBuy.gbitem_id}" >
+
+									 <input type="hidden" name="gbitem_id"  value="${groupBuy.gbitem_id}">
+								</a>
+								<!--End Product Button-->
+							</div>
+							<div class="product-image item col-lg-8 col-md-8 col-8">
+							<div class="product-details text-left">
+								<div class="brand-name">${groupBuy.gbitem_name}</div>
+								<!--End Brand Name-->
+								</div>
+								<div class="product-price">
+									<span class="old-price">原價$${groupBuy.gbitem_price}</span><span class="price">團購價$${groupBuy.gb_price}</span>
+								</div>
+							</div>
+								<!--End Product Review-->
+								</ul>
+								<a href="/CGA104G1/frontend/groupBuy/OneGroupBuyItem.html?gb_id=${groupBuy.gb_id}&gbitem_id=${groupBuy.gbitem_id}" title="Add to Cart"
+									class="btn-icon btn btn-addto-cart" data-bs-toggle="modal"
+									class="btn-icon btn btn-addto-cart" data-bs-toggle="modal"
+									data-bs-target="/CGA104G1/frontend/groupBuy/OneGroupBuyItem.html?gb_id=${groupBuy.gb_id}&gbitem_id=${groupBuy.gbitem_id}"><i class="icon an an-shopping-cart"></i><span>立即參團GroupJoin</span></a>
+								<!--end Cart Button-->
+							</div>
+						</div>
+					</div>
+				</div>`;
+                });
+                content.innerHTML = str;
+
+
+    }
+};
+
+//時間倒數
+const currentYear = new Date().getFullYear();
+// console.log(currentYear);
+const countDownTime = new Date(`January 01 ${currentYear + 1} 00:00:00`);
+//  console.log(countDownTime)
+function remainTime(){
+    const timeNow = new Date();
+    // console.log(timeNow)
+    const remain = countDownTime - timeNow;
+    // console.log(remain)
+    const sec = Math.floor(remain/1000)%60;
+    const min = Math.floor(remain/1000/60)%60;
+    const hour = Math.floor(remain/1000/60/60)%24;
+    const day = Math.floor(remain/1000/60/60/24);
+
+    $('#days').text(timeExpress(day));
+    $('#hours').text(timeExpress(hour));
+    $('#minutes').text(timeExpress(min));
+    $('#seconds').text(timeExpress(sec));
+}
+
+const timeinterval = setInterval(function(){
+    var t = countDownTime - (new Date());
+    // console.log(t)
+    if(t<0){
+        clearInterval(timeinterval);
+    }else{
+        remainTime()
+    }
+},1000);
+
+
+
+
+
+
+
+init();
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/*
+let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let gbitem_id = 3;
+		let gb_id = 1;
+
+
+		//取出一個groupBuy
+		getonegroupbuy(gb_id);
+		function getonegroupbuy(e) {
+			fetch(`/CGA104G1/GroupBuyIGetIOneJSONServlet?gb_id=${gb_id}`, { method: 'post' })
+				.then(resp => resp.json())
+				.then(item => {
+
+					$("#gb_name").html(`<div style="font-size:50px;">${item.gb_name}</div>`);
+					$("#gb_startdate").html(`<div>團購開始時間${item.gbstart_date}</div>`);
+					$("#gb_enddate").html(`<div>團購截止時間${item.gbend_date}</div>`);
+
+
+				})
+		}
+
+
+
+
+
+		//取出一個groupbuyitem
+		getonegroupbuyitem(gbitem_id);
+		function getonegroupbuyitem(e) {
+
+
+			fetch(`/CGA104G1/GroupBuyItemGetIOneJSONServlet?gbitem_id=${gbitem_id}`, { method: 'post' })
+				.then(resp => resp.json())
+				.then(item => {
+
+					$(".mb-3").html(`<div>
+						${item.gbitem_name}
+						</div>`);
+				})
+		}
+
+		//取出圖片
+		showgroupbuypicture(gbitem_id);
+		function showgroupbuypicture(data) {
+			//取出圖片
+			$.ajax({
+				url: `/CGA104G1/groupBuyItemPicture/groupBuyItemPictureGetAll.do?gbitem_id=${gbitem_id}`,
+				type: "POST",
+				success: function (data) {
+					showAllPic(data);
+				}
+			})
+			function showAllPic(data) {
+				let pics = JSON.parse(data);
+				// console.log(pics);
+				let div1 = document.querySelector(".slides");
+				let div2 = document.querySelector(".itemdetail");
+				let groupBuyItemPictureHTML1 = "";
+				let groupBuyItemPictureHTML2 = "";
+
+
+				for (let i = 1; i < pics.length; i++) {
+					groupBuyItemPictureHTML2 += `
+             <div >
+            <img src="/CGA104G1/groupBuyItemPicture/groupBuyItemPicture.do?gbitem_id=${pics[i]}" >
+        </div>
+        `;
+				}
+				div1.innerHTML = groupBuyItemPictureHTML1;
+				div2.innerHTML = groupBuyItemPictureHTML2;
+			}
+		}
+*/
+	</script>
+
+<script>
+    /*
+	function getProjectName() {
+        let path = window.location.pathname;
+        let webCtx = path.substring(0, path.indexOf('/', 1));
+
+        return webCtx;
+    }
+
+
+	let pjName = getProjectName();
+	const url = pjName + '/CGA104G1/Group_JoinServlet';
+	fetch(url, {
+	  method: 'POST',
+	  headers: {
+			'Content-Type': 'application/json'
+		},
+	  body: JSON.stringify({
+			id: 1,
+			title: 'foo',
+			body: 'bar',
+			userId: 1,
+		})
+	})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				const { status, statusText } = response;
+				throw Error(`${status}: ${statusText}`);
+			}
+		})
+		.then(obj => console.log(obj))
+		.catch(({ message }) => div.textContent = message);
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    getAllItem();
+// 		async function getAllItem(pageNumber = 1) {
+// 			let pjName = getProjectName();
+// 			//res:回應物件
+// 			// let res = await fetch(`${pjName}/item/items?action=GetAll_For_Display_JS&pageNumber=${pageNumber}`, { method: 'get' });
+// 			let res = await fetch(`${pjName}/groupBuyItemPicture/groupBuyItemPictureGetAll.do?`, { method: 'get' });
+// 			let groupBuyItemPicture = await res.json();  //將回應本體中json格式的字串轉成javascript陣列
+
+
+// 			$("#test").html('');
+
+
+
+// 			groupBuyItemPicture.forEach(e => {
+// 				// const image = item.itemPhoto
+// 				//
+// 				// function base64(image){
+// 				// 	let binary ="";
+// 				// 	const bytes = new Uint8Array(image)
+// 				// 	const len =bytes.byteLength;
+// 				// 	for(let i =0; i<len;i++){
+// 				// 		binary += String.fromCharCode(bytes[i])
+// 				// 	}
+// 				// 	return window.btoa(binary)
+// 				// }
+// 				// let photo = base64(image)
+// 				// photo="data:image/png;base64,"+photo
+// 				$("#test").append(`
+
+// 				 <div class="col-md-3">
+// 		                <div class="outer">
+// 		                    <div class="upper"> <img src="data:image/png;base64,${e.itemPhoto}"  onclick="showItem(${e.itemId})" class="card-img-top">
+// 		                        <div class="innertext">
+// 		            <a href="#">
+// 		                            <h4>${e.itemName}</h4>
+// 		                        </div>
+// 		                    </div>
+// 		                    <div class="lower">
+//                             <span>NT${e.itemPrice}</span>
+// 		            </a>
+
+// 		                    </div>
+// 		                </div>
+// 		        </div>
+// 		 `)
+
+
+
+// 			})
+
+// 			getCount();
+
+// 		}
+
+
+// 	  	async function showItem(gbitem_id){
+//     	sessionStorage.setItem('gbitem_id', gbitem_id);
+//     	location.assign("showOneGroupBuyItem.html");
+//     	/* location = "item_detail.html"; */
+// 	}
+
+// 		// async function getCount() {
+// 		// 	let pjName = getProjectName();
+// 		// 	$("#button").html('');
+// 		// 	let res = await fetch(pjName + "/item/items?action=GetCount");
+// 		// 	// let res = await fetch("/BA_REI/item/items?action=GetCount");
+// 		// 	let item = await res.json();//將回應本體中json格式的字串轉成javsascript物件
+// 		// 	let count = item.count;
+// 		// 	let page = count % 8 === 0 ? count / 8 : count / 8 + 1;
+// 		// 	for (let i = 1; i <= page; i++) {
+// 		// 		$("#button").append(
+// 		// 			`<button class="ghost-button" target="_blank" onclick="getAllItem(${i})">${i}</button>`
+// 		// 		)
+// 		// 	}
+// 		// }
+
+// 		// document.getElementById("keyWords").addEventListener('keypress', e => {
+// 		// 	if (e.keyCode === 13) {
+// 		// 		search();
+// 		// 	}
+// 		// })
+// 		// async function search() {
+// 		// 	let keyWords = document.getElementById("keyWords").value;
+// 		// 	let pjName = getProjectName();
+// 		// 	$("#test").html('');
+// 		// 	let res = await fetch(pjName + "/item/items?action=search&keyWords=" + keyWords);
+// 		// 	let items = await res.json();
+// 		// 	console.log(items)
+// 		// 	items.forEach(item => {
+
+
+// 		// 		$("#test").append(`
+
+// 		// 		 <div class="col-md-3">
+// 		//                 <div class="outer">
+// 		//                     <div class="upper"> <img src=data:image/jpeg;base64,${item.itemPhoto}  onclick="showItem(${item.itemId})" class="card-img-top">
+// 		//                         <div class="innertext">
+// 		//             <a href="#">
+// 		//                             <h4>${item.itemName}</h4>
+// 		//                         </div>
+// 		//                     </div>
+// 		//                     <div class="lower">
+//         //                     <span>NT${item.itemPrice}</span>
+// 		//             </a>
+
+// 		//                     </div>
+// 		//                 </div>
+// 		//         </div>
+// 		//  `)
+
+
+
+// 			// })
+
+// 		// }
+
+// 		function getProjectName() {
+// 			let path = window.location.pathname;
+// 			let webCtx = path.substring(0, path.indexOf('/', 1));
+// 			return webCtx;
+// 		}
+
+
+</script>
+
+<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+<!--  Cart -->
+<script type="text/javascript" src="../../resources/static/js/cart.js"></script>
+
+</html>

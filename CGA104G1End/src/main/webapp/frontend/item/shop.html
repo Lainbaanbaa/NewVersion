@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <!-- import bootstrap -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+            crossorigin="anonymous">
+
+    <!-- improt font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap"
+            rel="stylesheet">
+
+
+    <!--    <link rel="stylesheet"-->
+    <!--          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">-->
+    <!--    <link rel="stylesheet"-->
+    <!--          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">-->
+
+
+    <!-- import jquery-3.6.0 -->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- import slick-carousel -->
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+
+    <!-- import icon -->
+    <script src="https://kit.fontawesome.com/b5ef6b60f3.js"
+            crossorigin="anonymous"></script>
+
+    <!-- 按鈕 -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
+    <!--	sweetalert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- import css  -->
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .btn {
+            background: #f05f5c;
+            color: white;
+            padding: 9px 26px;
+            border-radius: 20px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* 團購主相關 */
+        .group_master_link {
+            color: #4f4f4f;
+            text-decoration: none;
+        }
+
+        .group_master_img {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            margin-right: 10px;
+        }
+
+        /* 價格樣式 */
+        .original_price {
+            color: #929292;
+            font-size: 70%;
+            font-style: italic;
+            text-decoration: line-through;
+        }
+
+        .discounted_price {
+            color: #f05f5c;
+            font-weight: bold;
+        }
+
+        /* 推薦商品樣式 */
+        #recommend {
+            border-top: solid 1px #c9c9c9;
+            padding: 80px 0;
+            background: rgba(243, 235, 240, 0.06);
+        }
+
+        #recommend h3 {
+            margin-bottom: 0px;
+        }
+
+        #recommend.upper {
+            position: relative;
+        }
+
+        #recommend span {
+            padding: 6px 15px;
+            border-radius: 20px;
+        }
+
+        #recommend .outer {
+            margin-top: 10px;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0);
+            padding: 10px;
+        }
+
+        #recommend .inner {
+            background: rgb(255, 255, 255);
+            padding: 40px 20px 40px 20px;
+            box-shadow: 1px 0 5px 5px #4f4f4f30;
+            border-radius: 5px;
+        }
+
+        #recommend .lower {
+            padding: 20px 20px 20px 20px;
+        }
+
+        #recommend a {
+            color: black;
+            text-decoration: none;
+        }
+
+        #recommend .group_master_link:hover {
+            color: #929292;
+        }
+
+        #recommend h4 {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            margin-top: 0.5em;
+        }
+
+        #recommend h4:hover {
+            color: #0b3f6a;
+            cursor: pointer;
+        }
+
+        .innertext {
+            height: 100px;
+        }
+
+        img:hover {
+            cursor: pointer;
+        }
+
+        /*按鈕樣式*/
+        .ghost-button {
+            color: #009688;
+            background: #fff;
+            border: 1px solid #009688;
+            font-size: 17px;
+            padding: 7px 12px;
+            font-weight: normal;
+            margin: 6px 0;
+            margin-right: 12px;
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Open Sans', sans-serif;
+            min-width: 120px;
+
+
+        }
+
+        .ghost-button:hover, .ghost-button:active {
+            color: #fff;
+            background: #009688;
+        }
+
+        .pageParent {
+
+            display: flex;
+            /* 水平置中 */
+            justify-content: center;
+            /* 垂直置中 */
+            align-items: center;
+
+        }
+
+
+        /**********************************!slider!************************************************/
+
+        /* -------------------------------------------------------- reset */
+        @import url('https://fonts.googleapis.com/css?family=Audiowide|Monoton|Poiret+One|Raleway');
+
+        #outerSliders {
+            width: 100%;
+            margin: -40px auto;
+            font-family: 'Raleway', sans-serif;
+            color: #FFF;
+            font-size: 1.75vw;
+            height: 85vh;
+        }
+
+        #outerSlider {
+            width: 100%;
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            z-index: 100;
+        }
+
+        h1 {
+            font-size: 6vw;
+            text-transform: uppercase;
+            font-weight: normal;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            outline: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        input {
+            display: none;
+        }
+
+        /* -------------------------------------------------------- codepen */
+        /* -------------------------------------------------------- slider */
+        .slider {
+            height: 25vw;
+            overflow: hidden;
+        }
+
+        /* -------------------------------------------------------- slide */
+        .slider > ul {
+            height: 100%;
+            z-index: 100;
+        }
+
+        .slider > ul > li {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            opacity: 0;
+            z-index: 1;
+            -webkit-transition: all 2000ms ease;
+            -moz-transition: all 2000ms ease;
+            -ms-transition: all 2000ms ease;
+            -o-transition: all 2000ms ease;
+            transition: all 2000ms ease;
+        }
+
+        .slider > #input-slide-0:checked ~ ul > li.slide-0,
+        .slider > #input-slide-1:checked ~ ul > li.slide-1,
+        .slider > #input-slide-2:checked ~ ul > li.slide-2,
+        .slider > #input-slide-3:checked ~ ul > li.slide-3 {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slider > ul > li.slide-0 {
+            background-color: #00DBF9;
+        }
+
+        .slider > ul > li.slide-1 {
+            background-color: #47D7ED;
+        }
+
+        .slider > ul > li.slide-2 {
+            background-color: #0093E9;
+        }
+
+        .slider > ul > li.slide-3 {
+            background-color: #0073B6;
+        }
+
+        /* -------------------------------------------------------- arrow */
+        .slider > .slider-arrow-prev,
+        .slider > .slider-arrow-next {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 300;
+        }
+
+        .slider > .slider-arrow-prev > label,
+        .slider > .slider-arrow-next > label {
+            position: absolute;
+            width: 5vw;
+            height: 5vw;
+            margin-top: -2.5vw;
+            opacity: 0;
+            background-size: 100% auto;
+            background-position: center;
+
+            z-index: -1;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        .slider > #input-slide-0:checked ~ .slider-arrow-prev > label.slide-3,
+        .slider > #input-slide-0:checked ~ .slider-arrow-next > label.slide-1,
+        .slider > #input-slide-1:checked ~ .slider-arrow-prev > label.slide-0,
+        .slider > #input-slide-1:checked ~ .slider-arrow-next > label.slide-2,
+        .slider > #input-slide-2:checked ~ .slider-arrow-prev > label.slide-1,
+        .slider > #input-slide-2:checked ~ .slider-arrow-next > label.slide-3,
+        .slider > #input-slide-3:checked ~ .slider-arrow-prev > label.slide-2,
+        .slider > #input-slide-3:checked ~ .slider-arrow-next > label.slide-0 {
+            z-index: 1;
+        }
+
+        .slider:hover > .slider-arrow-prev > label,
+        .slider:hover > .slider-arrow-next > label {
+            opacity: 1;
+        }
+
+        .slider > .slider-arrow-prev > label {
+            left: 5vw;
+            background-image: url(http://panikaro.interiowo.pl/img/arrow-left.png);
+        }
+
+        .slider > .slider-arrow-next > label {
+            right: 5vw;
+            background-image: url(http://panikaro.interiowo.pl/img/arrow-right.png);
+        }
+
+        /* -------------------------------------------------------- dot */
+        .slider > .slider-dot {
+            position: absolute;
+            top: 39vw;
+            text-align: center;
+            z-index: 300;
+            font-size: 0;
+            left: 47%;
+        }
+
+        .slider > .slider-dot > label {
+            position: relative;
+            display: inline-block;
+            margin: 1vw 0.5vw;
+            width: 1vw;
+            height: 1vw;
+            border-radius: 50%;
+
+            background-color: #FFF;
+        }
+
+        .slider > #input-slide-0:checked ~ .slider-dot > label.slide-0,
+        .slider > #input-slide-1:checked ~ .slider-dot > label.slide-1,
+        .slider > #input-slide-2:checked ~ .slider-dot > label.slide-2,
+        .slider > #input-slide-3:checked ~ .slider-dot > label.slide-3 {
+            background-color: #FD7FE3;
+        }
+
+        .slider > .slider-dot > label:hover {
+            background-color: #7E6DE0 !important;
+        }
+
+        /* -------------------------------------------------------- description */
+        .slider > .slide-description {
+            position: absolute;
+            width: 100%;
+            top: calc(9% - 3vw);
+
+            z-index: 200;
+        }
+
+        .slider > .slide-description > label {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            cursor: default;
+
+            z-index: 0;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all 0.75s ease;
+            -moz-transition: all 0.75s ease;
+            -ms-transition: all 0.75s ease;
+            -o-transition: all 0.75s ease;
+            transition: all 0.75s ease;
+        }
+
+        .slider > #input-slide-0:checked ~ .slide-description > .slide-0,
+        .slider > #input-slide-1:checked ~ .slide-description > .slide-1,
+        .slider > #input-slide-2:checked ~ .slide-description > .slide-2,
+        .slider > #input-slide-3:checked ~ .slide-description > .slide-3 {
+            z-index: 2;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slider > .slide-description > label > .text-slide {
+            margin: 0 auto;
+            line-height: 6vw;
+            text-align: center;
+        }
+
+        .slider > .slide-description > .slide-0 {
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .slider > .slide-description > .slide-1 {
+            font-family: 'Poiret One', cursive;
+        }
+
+        .slider > .slide-description > .slide-2 {
+            font-family: 'Monoton', cursive;
+        }
+
+        .slider > .slide-description > .slide-3 {
+            font-family: 'Audiowide', cursive;
+        }
+
+        /* -------------------------------------------------------- autoplay */
+        /*
+	if you don't want to autoplay
+  just check input "slide-0"
+  instead of input "play" in html code
+  and remove the code below
+*/
+        /* -------------------------------------------------------- autoplay slide */
+        @-webkit-keyframes slide {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            6%,
+            25% {
+                opacity: 1;
+                z-index: 2;
+            }
+
+            30%,
+            50% {
+                opacity: 0;
+                z-index: 2;
+            }
+        }
+
+        @-moz-keyframes slide {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+            }
+
+            30%,
+            50% {
+                opacity: 0;
+                z-index: 2;
+            }
+        }
+
+        @-ms-keyframes slide {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            6%,
+            25% {
+                opacity: 1;
+                z-index: 2;
+            }
+
+            30%,
+            50% {
+                opacity: 0;
+                z-index: 2;
+            }
+        }
+
+        @-o-keyframes slide {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            6%,
+            25% {
+                opacity: 1;
+                z-index: 2;
+            }
+
+            30%,
+            50% {
+                opacity: 0;
+                z-index: 2;
+            }
+        }
+
+        @keyframes slide {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            6%,
+            25% {
+                opacity: 1;
+                z-index: 2;
+            }
+
+            30%,
+            50% {
+                opacity: 0;
+                z-index: 2;
+            }
+        }
+
+        .slider > #input-slide-autoplay:checked ~ ul > li.slide-0 {
+            -webkit-animation: slide 32000ms infinite -2000ms linear;
+            -moz-animation: slide 32000ms infinite -2000ms linear;
+            -ms-animation: slide 32000ms infinite -2000ms linear;
+            -o-animation: slide 32000ms infinite -2000ms linear;
+            animation: slide 32000ms infinite -2000ms linear;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ ul > li.slide-1 {
+            -webkit-animation: slide 32000ms infinite 6000ms linear;
+            -moz-animation: slide 32000ms infinite 6000ms linear;
+            -ms-animation: slide 32000ms infinite 6000ms linear;
+            -o-animation: slide 32000ms infinite 6000ms linear;
+            animation: slide 32000ms infinite 6000ms linear;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ ul > li.slide-2 {
+            -webkit-animation: slide 32000ms infinite 14000ms linear;
+            -moz-animation: slide 32000ms infinite 14000ms linear;
+            -ms-animation: slide 32000ms infinite 14000ms linear;
+            -o-animation: slide 32000ms infinite 14000ms linear;
+            animation: slide 32000ms infinite 14000ms linear;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ ul > li.slide-3 {
+            -webkit-animation: slide 32000ms infinite 22000ms linear;
+            -moz-animation: slide 32000ms infinite 22000ms linear;
+            -ms-animation: slide 32000ms infinite 22000ms linear;
+            -o-animation: slide 32000ms infinite 22000ms linear;
+            animation: slide 32000ms infinite 22000ms linear;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ ul > li {
+            -webkit-transition: none;
+            -moz-transition: none;
+            -ms-transition: none;
+            -o-transition: none;
+            transition: none;
+        }
+
+        /* -------------------------------------------------------- autoplay arrow */
+        @-webkit-keyframes arrow {
+
+            0%,
+            24% {
+                z-index: 1;
+            }
+
+            25%,
+            100% {
+                z-index: -1;
+            }
+        }
+
+        @-moz-keyframes arrow {
+
+            0%,
+            24% {
+                z-index: 1;
+            }
+
+            25%,
+            100% {
+                z-index: -1;
+            }
+        }
+
+        @-ms-keyframes arrow {
+
+            0%,
+            24% {
+                z-index: 1;
+            }
+
+            25%,
+            100% {
+                z-index: -1;
+            }
+        }
+
+        @-o-keyframes arrow {
+
+            0%,
+            24% {
+                z-index: 1;
+            }
+
+            25%,
+            100% {
+                z-index: -1;
+            }
+        }
+
+        @keyframes arrow {
+
+            0%,
+            24% {
+                z-index: 1;
+            }
+
+            25%,
+            100% {
+                z-index: -1;
+            }
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-3,
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-1 {
+            -webkit-animation: arrow 32000ms infinite -2000ms;
+            -moz-animation: arrow 32000ms infinite -2000ms;
+            -ms-animation: arrow 32000ms infinite -2000ms;
+            -o-animation: arrow 32000ms infinite -2000ms;
+            animation: arrow 32000ms infinite -2000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-0,
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-2 {
+            -webkit-animation: arrow 32000ms infinite 6000ms;
+            -moz-animation: arrow 32000ms infinite 6000ms;
+            -ms-animation: arrow 32000ms infinite 6000ms;
+            -o-animation: arrow 32000ms infinite 6000ms;
+            animation: arrow 32000ms infinite 6000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-1,
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-3 {
+            -webkit-animation: arrow 32000ms infinite 14000ms;
+            -moz-animation: arrow 32000ms infinite 14000ms;
+            -ms-animation: arrow 32000ms infinite 14000ms;
+            -o-animation: arrow 32000ms infinite 14000ms;
+            animation: arrow 32000ms infinite 14000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-2,
+        .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-0 {
+            -webkit-animation: arrow 32000ms infinite 22000ms;
+            -moz-animation: arrow 32000ms infinite 22000ms;
+            -ms-animation: arrow 32000ms infinite 22000ms;
+            -o-animation: arrow 32000ms infinite 22000ms;
+            animation: arrow 32000ms infinite 22000ms;
+        }
+
+        /* -------------------------------------------------------- autoplay dot */
+        @-webkit-keyframes dot {
+
+            0%,
+            24% {
+                background-color: #FD7FE3;
+            }
+
+            25%,
+            100% {
+                background: #FFF;
+            }
+        }
+
+        @-moz-keyframes dot {
+
+            0%,
+            24% {
+                background-color: #FD7FE3;
+            }
+
+            25%,
+            100% {
+                background: #FFF;
+            }
+        }
+
+        @-ms-keyframes dot {
+
+            0%,
+            24% {
+                background-color: #FD7FE3;
+            }
+
+            25%,
+            100% {
+                background: #FFF;
+            }
+        }
+
+        @-o-keyframes dot {
+
+            0%,
+            24% {
+                background-color: #FD7FE3;
+            }
+
+            25%,
+            100% {
+                background: #FFF;
+            }
+        }
+
+        @keyframes dot {
+
+            0%,
+            24% {
+                background-color: #FD7FE3;
+            }
+
+            25%,
+            100% {
+                background: #FFF;
+            }
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-0 {
+            -webkit-animation: dot 32000ms infinite -2000ms;
+            -moz-animation: dot 32000ms infinite -2000ms;
+            -ms-animation: dot 32000ms infinite -2000ms;
+            -o-animation: dot 32000ms infinite -2000ms;
+            animation: dot 32000ms infinite -2000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-1 {
+            -webkit-animation: dot 32000ms infinite 6000ms;
+            -moz-animation: dot 32000ms infinite 6000ms;
+            -ms-animation: dot 32000ms infinite 6000ms;
+            -o-animation: dot 32000ms infinite 6000ms;
+            animation: dot 32000ms infinite 6000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-2 {
+            -webkit-animation: dot 32000ms infinite 14000ms;
+            -moz-animation: dot 32000ms infinite 14000ms;
+            -ms-animation: dot 32000ms infinite 14000ms;
+            -o-animation: dot 32000ms infinite 14000ms;
+            animation: dot 32000ms infinite 14000ms;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-3 {
+            -webkit-animation: dot 32000ms infinite 22000ms;
+            -moz-animation: dot 32000ms infinite 22000ms;
+            -ms-animation: dot 32000ms infinite 22000ms;
+            -o-animation: dot 32000ms infinite 22000ms;
+            animation: dot 32000ms infinite 22000ms;
+        }
+
+        /* -------------------------------------------------------- autoplay description */
+        @-webkit-keyframes description {
+
+            0%,
+            5% {
+                opacity: 0;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            25%,
+            100% {
+                opacity: 0;
+                z-index: 0;
+                visibility: hidden;
+            }
+        }
+
+        @-moz-keyframes description {
+
+            0%,
+            5% {
+                opacity: 0;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            25%,
+            100% {
+                opacity: 0;
+                z-index: 0;
+                visibility: hidden;
+            }
+        }
+
+        @-ms-keyframes description {
+
+            0%,
+            5% {
+                opacity: 0;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            25%,
+            100% {
+                opacity: 0;
+                z-index: 0;
+                visibility: hidden;
+            }
+        }
+
+        @-o-keyframes description {
+
+            0%,
+            5% {
+                opacity: 0;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            25%,
+            100% {
+                opacity: 0;
+                z-index: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes description {
+
+            0%,
+            5% {
+                opacity: 0;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            6%,
+            24% {
+                opacity: 1;
+                z-index: 2;
+                visibility: visible;
+            }
+
+            25%,
+            100% {
+                opacity: 0;
+                z-index: 0;
+                visibility: hidden;
+            }
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-0 {
+            -webkit-animation: description 32000ms infinite -2000ms ease;
+            -moz-animation: description 32000ms infinite -2000ms ease;
+            -ms-animation: description 32000ms infinite -2000ms ease;
+            -o-animation: description 32000ms infinite -2000ms ease;
+            animation: description 32000ms infinite -2000ms ease;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-1 {
+            -webkit-animation: description 32000ms infinite 6000ms ease;
+            -moz-animation: description 32000ms infinite 6000ms ease;
+            -ms-animation: description 32000ms infinite 6000ms ease;
+            -o-animation: description 32000ms infinite 6000ms ease;
+            animation: description 32000ms infinite 6000ms ease;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-2 {
+            -webkit-animation: description 32000ms infinite 14000ms ease;
+            -moz-animation: description 32000ms infinite 14000ms ease;
+            -ms-animation: description 32000ms infinite 14000ms ease;
+            -o-animation: description 32000ms infinite 14000ms ease;
+            animation: description 32000ms infinite 14000ms ease;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-3 {
+            -webkit-animation: description 32000ms infinite 22000ms ease;
+            -moz-animation: description 32000ms infinite 22000ms ease;
+            -ms-animation: description 32000ms infinite 22000ms ease;
+            -o-animation: description 32000ms infinite 22000ms ease;
+            animation: description 32000ms infinite 22000ms ease;
+        }
+
+        .slider > #input-slide-autoplay:checked ~ .slide-description > label {
+            -webkit-transition: none;
+            -moz-transition: none;
+            -ms-transition: none;
+            -o-transition: none;
+            transition: none;
+        }
+
+        /**********************************!slider!************************************************/
+
+        /**********************************!type!************************************************/
+        .banner-circle-icon__wrapper {
+            display: inherit;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+
+        .banner-circle-icon__row > :first-child {
+            margin-left: auto;
+        }
+
+        div {
+            display: block;
+
+        }
+
+        .banner-circle-icon__item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 8px;
+            padding: 0 2px;
+            cursor: pointer;
+        }
+
+        .banner-circle-icon__row {
+            display: flex;
+            flex-flow: row wrap;
+            width: 100%;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        body a,
+        body a:hover {
+            color: inherit;
+            text-decoration: none
+        }
+
+
+        .banner-circle-icon p {
+            align-self: center;
+        }
+
+        .pet-banners {
+            display: flex;
+            justify-content: center;
+            flex-flow: row wrap;
+            width: 102.6%;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
+            border-radius: 10px;
+            margin-top: 30px;
+
+        }
+
+        .banner-text-banner {
+            width: 100%;
+            text-align: center;
+            background: transparent;
+        }
+
+        .pet-banners > div:not(:last-child) {
+            margin-bottom: 50px;
+        }
+
+        .banner-text-banner__item {
+            background-color: #fff;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
+            border-radius: 10px;
+            overflow: hidden;
+            word-wrap: break-word;
+            white-space: nowrap;
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px 12px 16px;
+            text-align: center;
+            text-overflow: ellipsis;
+            font-size: 1.25rem;
+            letter-spacing: .1em;
+            padding: 12px 16px;
+            padding-top: 12px;
+            padding-right: 16px;
+            padding-bottom: 12px;
+            padding-left: 16px;
+        }
+
+        .banner-parent {
+            position: relative;
+            width: 100%;
+            margin: 70px auto 0px auto;
+        }
+
+        #logo {
+            width: 200px;
+            height: 10%;
+        }
+
+        nav {
+            position: fixed;
+        }
+
+        /**********************************!type!************************************************/
+
+    </style>
+</head>
+<body>
+
+<div id="app" v-cloak>
+    <header style="margin-bottom: 10%">
+
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light
+     bg-light static-top mb-5 shadow nav">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/CGA104G1/frontend/index.html">
+                    <!-- 網站 logo -->
+                    <img src="/CGA104G1/resources/static/image/ba-rei%2002.png" alt="Logo" width="200px" height="10%"
+                         class="d-inline-block align-text-top" id="logo">
+                </a>
+
+                <div class="float-end">
+                    <!-- 右側 toggle 按鈕 -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation"
+                            style="margin-right: 10px;z-index: 1000">
+                        <span class="navbar-toggler-icon" style="z-index: -9999"></span>
+                    </button>
+
+                </div>
+                <!-- 導覽列內容 -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/CGA104G1/frontend/index.html">首頁</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/CGA104G1/frontend/item/shop.html">毛孩の商城</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/CGA104G1/frontend/groupBuy/listallgroupbuy.html">團購底加啦</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/CGA104G1/frontend/article/select_page.jsp">家長討論區</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+
+                                會員中心
+                            </a>
+                            <ul class="dropdown-menu" id="memDrop">
+                                <li><a class="dropdown-item"
+                                       href="/CGA104G1/frontend/commodityDetails/OrderDetail.html">追蹤訂單</a></li>
+                                <li><a class="dropdown-item" href="/CGA104G1/frontend/group_buy_order/select_page.jsp">團購訂單</a>
+                                </li>
+                                <li><a class="dropdown-item" href="/CGA104G1/frontend/coupon/Coupon.html">查看折價券</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="/CGA104G1/frontend/coupon/GetCoupon.html">領取折價券</a></li>
+                                <li><a class="dropdown-item"
+                                       href="/CGA104G1/frontend/item/favoriteList.html">我的最愛</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="/CGA104G1/frontend/mem/mem_index.jsp">會員中心首頁</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/CGA104G1/frontend/question/question.html">常見問題 Q&A</a>
+                        </li>
+                    </ul>
+
+
+                    <div class="d-flex" role="search" style="margin-bottom: 0px">
+                        <input v-model="keyWords" @keyup.enter="searchItem()" class="form-control me-2" type="search"
+                               placeholder="Search" aria-label="Search"
+                               id="search_bar">
+                        <button class="btn btn-outline-success" type="submit" id="search_btn" @click="searchItem">
+                            Search
+                        </button>
+                    </div>
+                    <div id="memberImg" style="width: 50px"></div>
+
+                    <div id="memberName" style="padding-left: 10px"></div>
+
+                            <a href="/CGA104G1/frontend/item/cart.html"
+                               style="text-decoration: none; margin-left: 10px; color: #484747">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                     class="bi bi-cart3" viewBox="0 0 16 16" style="margin-bottom: 10px">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                </svg>
+
+                                <span class='badge badge-warning' id='lblCartCount'>{{cartNum}}</span>
+
+                            </a>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div id="outerSliders">
+        <div id="outerSlider">
+            <div class='slider'>
+                <input name="input-slider" id='input-slide-0' type="radio" class='input-slide input-slide-num'>
+                <input name="input-slider" id='input-slide-1' type="radio" class='input-slide input-slide-num'>
+                <input name="input-slider" id='input-slide-2' type="radio" class='input-slide input-slide-num'>
+                <input name="input-slider" id='input-slide-3' type="radio" class='input-slide input-slide-num'>
+                <input name="input-slider" id='input-slide-autoplay' type="radio" class='input-slide' checked>
+                <ul>
+                    <li class='slide-0'></li>
+                    <li class='slide-1'></li>
+                    <li class='slide-2'></li>
+                    <li class='slide-3'></li>
+                </ul>
+                <div class='slide-description'>
+                    <label class='slide-0'>
+                        <img src="../../resources/static/image/coverPhoto/cover5.png">
+                    </label>
+                    <label class='slide-1'>
+                        <img src="../../resources/static/image/coverPhoto/cover1.png">
+                    </label>
+                    <label class='slide-2'>
+                        <img src="../../resources/static/image/coverPhoto/cover2.png">
+                    </label>
+                    <label class='slide-3'>
+                        <img src="../../resources/static/image/coverPhoto/cover4.png">
+                    </label>
+
+                </div>
+                <div class='slider-arrow-prev'>
+                    <label class='slide-0' for='input-slide-0'></label>
+                    <label class='slide-1' for='input-slide-1'></label>
+                    <label class='slide-2' for='input-slide-2'></label>
+                    <label class='slide-3' for='input-slide-3'></label>
+                </div>
+                <div class='slider-arrow-next'>
+                    <label class='slide-0' for='input-slide-0'></label>
+                    <label class='slide-1' for='input-slide-1'></label>
+                    <label class='slide-2' for='input-slide-2'></label>
+                    <label class='slide-3' for='input-slide-3'></label>
+                </div>
+                <div class='slider-dot'>
+                    <label class='slide-0' for='input-slide-0'></label>
+                    <label class='slide-1' for='input-slide-1'></label>
+                    <label class='slide-2' for='input-slide-2'></label>
+                    <label class='slide-3' for='input-slide-3'></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-parent">
+        <div class="banner-text-banner">
+            <div class="banner-text-banner__item">按分類幫毛孩找好東西</div>
+        </div>
+        <div class="pet-banners">
+
+
+            <div class="banner-circle-icon">
+                <div class="banner-circle-icon__wrapper">
+                    <div class="banner-circle-icon__row">
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/water.png" @click="searchItemType(1)"
+                                alt="專題推薦" style="width: 90px; height: 90px;">
+                                    <p>飲食/飲水</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/dog-food.png"
+                                @click="searchItemType(2)"
+                                alt="狗狗飼料" style="width: 90px; height: 90px;">
+                                    <p>狗狗飼料</p>
+                                </span></div>
+
+                        <!--                        src="https://cdn-v4.petpetgo.com/195/public/55bc97de-d89d-4c3b-84f7-2e3620ca5edf.png"-->
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/cat-food.png"
+                                @click="searchItemType(3)"
+                                alt="貓咪飼料" style="width: 90px; height: 90px;">
+                                    <p>貓咪飼料</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/food.png"
+                                @click="searchItemType(4)"
+                                alt="貓狗罐罐" style="width: 90px; height: 90px;">
+                                    <p>貓狗罐罐</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/snack.png" @click="searchItemType(5)"
+                                alt="貓狗零食" style="width: 90px; height: 90px;">
+                                    <p>貓狗零食</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/pills.png"
+                                @click="searchItemType(6)"
+                                alt="寵物保健" style="width: 90px; height: 90px;">
+                                    <p>寵物保健</p>
+                                </span></div>
+                    </div>
+                    <div class="banner-circle-icon__row">
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/cat.png" @click="searchItemType(7)"
+                                alt="貓砂尿布" style="width: 90px; height: 90px;">
+                                    <p>貓砂尿布</p>
+                                </span></div>
+
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                @click="searchItemType(8)"
+                                src="../../resources/static/image/typeIcon/mouse.png"
+
+                                alt="抓板玩具" style="width: 90px; height: 90px;">
+                                    <p>抓板玩具</p>
+                                </span></div>
+
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/nail-polish.png"
+                                @click="searchItemType(9)"
+                                alt="美容護理" style="width: 90px; height: 90px;">
+                                    <p>美容護理</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                @click="searchItemType(10)"
+                                src="../../resources/static/image/typeIcon/pet-shampoo.png"
+                                alt="環境清潔" style="width: 90px; height: 90px;">
+                                    <p>清潔用品</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/dog-house.png" @click="searchItemType(11)"
+                                alt="居家用品" style="width: 90px; height: 90px;">
+                                    <p>居家用品</p>
+                                </span></div>
+
+                        <div class="lazyload-wrapper "><span class="banner-circle-icon__item"><img
+                                src="../../resources/static/image/typeIcon/cage.png" @click="searchItemType(12)"
+                                alt="外出用品" style="width: 90px; height: 90px;">
+                                    <p>外出用品</p>
+                                </span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main>
+        <article id="recommend">
+            <section id="shop_best_seller">
+                <div class="col-md-12 text-center">
+                    <h1>
+                        熱銷排行榜<i class="fa-solid fa-fire" style="color: red;"></i>
+                    </h1>
+                </div>
+                <div class="container">
+                    <div id="test" class="row">
+
+
+                        <div class="col-md-3" v-for="item in items">
+                            <div class="outer">
+                                <div class="upper"><img :src="`data:image/png;base64,${item.itemPhoto}`"
+                                                        class="card-img-top" @click="showItem(item.itemId)"/>
+
+                                    <div class="innertext">
+                                        <a href="#"></a>
+                                        <h4>{{item.itemName}}</h4>
+                                    </div>
+
+                                    <div class="lower">
+                                        <span>NT{{item.itemPrice}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </section>
+        </article>
+
+        <div id="button" class="pageParent">
+
+                <span v-for="p in page">
+                    <button class="ghost-button" target="_blank" @click="getAllItem(p)">{{p}}</button>
+                </span>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<!--footer-->
+<script src="../../resources/static/js/footer.js"></script>
+
+<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+<!-- import bootstrap -->
+<link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+        crossorigin="anonymous">
+
+
+<script>
+
+
+    Vue.createApp({
+        data() {
+            return {
+                items: [],
+
+                searchAll: [],
+                newItems: [],
+                count: 0,
+                page: 0,
+                selectedType: 0,
+                keyWords: ''
+
+            }
+        },
+        computed: {
+            cartNum() {
+                //購物車小數字
+
+                let part = sessionStorage.getItem("part");
+
+                if (part != null) {
+
+                    let cartNum = JSON.parse(part).length;
+                    return cartNum;
+                    // document.getElementById("lblCartCount").append(partNum);
+                }
+                //
+                //
+            }
+
+        },
+        methods: {
+            searchItem() {
+
+                this.newItems = this.items;
+                if (this.keyWords.trim() === "" && this.selectedType === 0) {
+                    this.items = this.newItems;
+
+                    location.reload();
+                } else {
+                    let pjName = getProjectName();
+                    axios.get(pjName + "/item/items?action=search&keyWords=" + this.keyWords + "&type=" + this.selectedType)
+                        .then((resp) => {
+                            this.searchAll = resp.data;
+                            this.newItems = this.items;
+                            this.items = this.searchAll;
+
+                            console.log(resp.data)
+
+                        })
+                }
+            },
+
+            searchItemType(type) {
+                this.selectedType = type;
+                // alert(this.selectedType);
+                this.newItems = this.items;
+                if (this.keyWords.trim() === "" && this.selectedType === 0) {
+                    this.items = this.newItems;
+
+                    location.reload();
+                } else {
+                    let pjName = getProjectName();
+                    axios.get(pjName + "/item/items?action=frontEndSearch&keyWords=" + this.keyWords + "&type=" + this.selectedType)
+                        .then((resp) => {
+                            this.searchAll = resp.data;
+                            this.newItems = this.items;
+                            this.items = this.searchAll;
+
+                            console.log(resp.data)
+
+                        })
+                }
+            },
+            getAllItem(pageNumber = 1) {
+                let pjName = getProjectName();
+                axios.get(pjName + '/item/items?action=GetAll_For_Display_JS&pageNumber=' + pageNumber)
+                    .then(resp => {
+                        console.log(resp.data);
+                        this.items = resp.data;
+
+                    })
+            },
+            showItem(itemId) {
+                sessionStorage.setItem('itemId', itemId);
+                location.assign("item_detail.html");
+            }, getAll() {
+                let pjName = getProjectName();
+                axios.get(pjName + '/item/items?action=GetAll_For_Display_JS&pageNumber=' + pageNumber)
+            },
+
+        },
+
+        mounted() {
+            let pjName = getProjectName();
+            axios.get(pjName + '/item/items?action=GetAll_For_Display_JS&pageNumber=1')
+                .then(resp => {
+                    console.log(resp.data);
+                    this.items = resp.data;
+
+                })
+
+
+            axios.get(pjName + "/item/items?action=GetCount")
+                .then((resp) => {
+                    this.count = (resp.data.count);
+                    console.log(this.count)
+                    this.page = Math.floor((this.count % 8) === 0 ? (this.count / 8) : (this.count / 8) + 1);
+                    console.log(this.page)
+                })
+
+        }
+    }).mount("#app");
+
+
+    function getProjectName() {
+        let path = window.location.pathname;
+        let webCtx = path.substring(0, path.indexOf('/', 1));
+
+        return webCtx;
+    }
+
+
+</script>
+
+
+</body>
+</html>

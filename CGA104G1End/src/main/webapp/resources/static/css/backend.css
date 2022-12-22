@@ -1,0 +1,19 @@
+body{
+	margin: 0;
+}
+
+nav{
+	height: 50px;
+}
+
+main{
+	display: flex;
+	background-color: #191c24;
+}
+
+section{
+	width: 80%;
+	min-height: 526px;
+	color: black;
+	background-color: white;
+}

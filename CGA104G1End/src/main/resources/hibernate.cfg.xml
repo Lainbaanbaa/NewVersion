@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--        <property name="connection.url">jdbc:mysql://localhost:3306/ba_rei</property>-->
+        <!--        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+        <!--        <property name="connection.username">root</property>-->
+        <!--        <property name="connection.password">P@ssw0rd</property>-->
+        <!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>-->
+
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <property name="connection.datasource">java:comp/env/jdbc/hikariCP-BaRei</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ba_rei</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.provider_class">
+            com.zaxxer.hikari.hibernate.HikariConnectionProvider
+        </property>
+        <property name="hibernate.hikari.minimumIdle">5</property>
+        <property name="hibernate.hikari.maximumPoolSize">10</property>
+        <property name="hibernate.hikari.idleTimeout">30000</property>
+
+        <!-- 顯示 SQL 語句 -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <mapping class="com.commodityDetails.model.entity.CommodityDetails"/>
+        <mapping class="com.coupon.model.entity.Coupon"/>
+        <mapping class="com.memberCoupon.model.entity.MemberCoupon"/>
+        <mapping class="com.orderBuy.model.entity.OrderBuy"/>
+        <mapping class="com.news.model.NewsVO"/>
+        <mapping class="com.item.model.ItemVO"/>
+        <mapping class="com.itemType.model.ItemTypeVO"/>
+        <mapping class="com.itemPhotos.model.ItemPhotosVO"/>
+
+    </session-factory>
+</hibernate-configuration>
+

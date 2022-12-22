@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!--     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+ -->
+
+	<!-- import bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+	<!-- improt font-style -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+
+ 	<!--item_detail.css	-->
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/item_detail.css">
+
+	<!-- import css stylesheet -->
+	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+	<!-- import css stylesheet -->
+	<link rel="stylesheet" href="../../resources/static/css/plugins.css">
+	<link rel="stylesheet" href="../../resources/static/css/style.css">
+	<link rel="stylesheet" href="../../resources/static/css/responsive.css">
+	<!-- import jquery-3.6.0 -->
+	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- import slick-carousel -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+
+	<!-- import icon -->
+	<script src="https://kit.fontawesome.com/b5ef6b60f3.js" crossorigin="anonymous"></script>
+
+	<!--item_detail.css	-->
+	<link rel="stylesheet" type="text/css" href="../../resources/static/css/item_detail.css">
+
+	<!-- slider -->
+	<link href="https://cdn.bootcss.com/flexslider/2.6.3/flexslider.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flexslider/2.6.3/jquery.flexslider-min.js"></script>
+
+
+	<!--	sweetalert-->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/qs/6.11.0/qs.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+ <link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+
+	<!-- 數量按柳css -->
+	<style type="text/css">
+		.qty {
+			width: 40px;
+			height: 35px;
+			text-align: center;
+			border: 0;
+			border-top: 1px solid #aaa;
+			border-bottom: 1px solid #aaa;
+		}
+
+
+		input.qtyplus {
+			width: 25px;
+			height: 35px;
+			border: 1px solid #aaa;
+			background: #f8f8f8;
+		}
+
+		input.qtyminus {
+			width: 25px;
+			height: 35px;
+			border: 1px solid #aaa;
+			background: #f8f8f8;
+		}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main>
+		<div class="section product-detail">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<span class="onsale" id="onsale">Sale!</span> <a class="prettyphoto"
+							data-rel="prettyPhoto[gallery]" href="images/shop/shop_6.jpg">
+							<!-- <img alt="" class="fullwidth" id="product-img"> -->
+						</a>
+						<div class="flexslider">
+							<ul class="slides"></ul>
+						</div>
+
+					</div>
+					<div class="col-sm-6">
+						<h1 id="product-title"></h1>
+
+						<div class="price mt-1" id="product-price"></div>
+
+						<div id="product-content"></div>
+
+						<div id="gb_name"></div>
+						<div id="gb_startdate" style="color:red;"></div>
+						<div id="gb_enddate" style="color:red;"></div>
+
+
+						<div class="mb-3" style="font-size: 30px"></div>
+
+						<h3 id="gb_price" style="font-size: 30px ;color:Orange;"></h3>
+						<div id="gbitem_price"></div>
+
+
+
+
+
+
+						<form id='myform' method='POST' action='/CGA104G1/Group_JoinServlet' name="form1">
+							<div id="product-amount"></div>
+
+<!-- 							<input type="submit" class="btn btn-rounded btn-dark" id="addToCart" onclick="addToCart()" value="參 加 團 購"><span></span>  -->
+<!-- 							<a href="" class="btn btn-rounded btn-dark" onclick="addToTrace()" id="Trace"><span>trace</span></a> -->
+							<h5 id="gb_price"></h5>
+
+
+							<div id="2groupjoinhidden"></div>
+							<input type="hidden" name="action" value="go_join">
+						</form>
+
+
+
+
+
+					</div>
+					<div class="col-sm-12">
+						<div class="commerce-tabs tabs mt-5 mb-4">
+							<!-- Nav tabs -->
+							<div class="nav-tabs-wrapper">
+								<ul class="nav nav-tabs tabs text-center">
+									<li><a class="active" href="#tab-content-1" data-toggle="tab">Description</a></li>
+									<li><a href="#tab-content-2" data-toggle="tab">Reviews</a>
+									</li>
+								</ul>
+							</div>
+							<!-- Tab panes -->
+							<div class="tab-content">
+
+								<div class="tab-pane fade" id="tab-content-2"></div>
+
+								<div class="itemdetail"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+	<!-- import main.js -->
+	<script src="./js/main.js"></script>
+
+	<!-- import bootstrap 5.2.1 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+		crossorigin="anonymous"></script>
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="../../resources/static/js/cart.js"></script>
+	<!--  NavBar  -->
+	<script src="../../resources/static/js/navbar.js"></script>
+	<!--  Footer  -->
+	<script src="../../resources/static/js/footer.js"></script>
+
+	<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+	<!--  Cart -->
+	<script type="text/javascript" src="../../resources/static/js/cart.js"></script>
+
+	<script type="text/javascript">
+		let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let urlParams2 = new URLSearchParams(queryString);
+        let gb_id = urlParams.get("gb_id");
+        let gbitem_id = urlParams2.get("gbitem_id");
+
+        moment.locale('zh-tw');
+        // 取得現在時間
+        let now = moment().valueOf();
+
+
+
+		//取出一個groupBuy
+		getonegroupbuy(gb_id);
+		function getonegroupbuy(e) {
+			fetch(`/CGA104G1/GroupBuyIGetIOneJSONServlet?gb_id=${gb_id}`, { method: 'post' })
+				.then(resp => resp.json())
+				.then(groupBuy => {
+					// 取得團購團時間
+			        let gbstartdate = Date.parse(groupBuy.gbstart_date) < now ? moment(Date.parse(groupBuy.gbstart_date)).format('YYYY-MM-DD HH:mm:SS') : "即將開團，開團時間為"+moment(Date.parse(groupBuy.gbstart_date)).format('YYYY-MM-DD HH:mm:SS');
+			        let gbenddate = Date.parse(groupBuy.gbend_date) >= now ? moment(Date.parse(groupBuy.gbend_date)).format('YYYY-MM-DD HH:mm:SS') : "時間截止，團購已關閉";
+
+					$("#gb_name").html(`<div style="font-size:50px;">${groupBuy.gb_name}</div>`);
+					$("#gb_startdate").html(`<div>團購開始時間 : ${gbstartdate}</div>`);
+					$("#gb_enddate").html(`<div>團購截止時間 : ${gbenddate}</div>`);
+
+					$("#gb_price").html(`
+							<div class="product-price">
+							<span class="price" style="font-size:40px ;color:red;">團購價NT$${groupBuy.gb_price}</span>
+							</div>
+							`);
+
+
+// 					if(Date.parse(groupBuy.gbstart_date) > now){
+// 						$("#product-amount").html(`
+// 								<input type="submit" class="btn btn-rounded btn-dark" id="addToCart" onclick="addToCart()" value="參 加 團 購" >
+// 						`);
+// 					}
+// 					else if(Date.parse(groupBuy.gbstart_date) < now && Date.parse(groupBuy.gbend_date) > now){
+// 						$("#product-amount").html(`
+// 								<input type="submit" class="btn btn-rounded btn-dark" id="addToCart" onclick="addToCart()" value="參 加 團 購" >
+// 						`);
+// 					}else if(Date.parse(groupBuy.gbend_date) < now){
+// 						$("#product-amount").html(`
+// 								<input type="submit" class="btn btn-rounded btn-dark" id="addToCart" onclick="addToCart()" value="參 加 團 購" disable>
+// 						`);
+// 					};
+
+					$("#product-amount").html(`
+							<input type="submit" class="btn btn-rounded btn-dark" id="addToCart" onclick="addToCart()" value="參 加 團 購" >
+							<input type="hidden" name="gb_price" id="hiddengb_price" value="${groupBuy.gb_price}">
+							<input type="hidden" name="gb_id" id="hiddengb_id" value="${groupBuy.gb_id}">
+							<input type="hidden" name="gbitem_id" id="hiddengbitem_id" value="${groupBuy.gbitem_id}">
+							<input type="hidden" name="gb_min" id="hiddengb_min" value="${groupBuy.gb_min}">
+							<input type="hidden" name="gb_amount" id="hiddengb_amount" value="${groupBuy.gb_amount}">
+							<input type="hidden" name="gb_status"id="hiddengb_status" value="${groupBuy.gb_status}">
+							<input type="hidden" name="mem_id" id="hiddenmem_id" value="${groupBuy.mem_id}">
+							<input type="hidden" name="gb_name" id="hiddenmem_id" value="${groupBuy.gb_name}">
+					`);
+					if(Date.parse(groupBuy.gbstart_date) > now){
+						$("#addToCart").prop("disabled" , true)
+// 						console.log(01);
+					}else if (groupBuy.gb_amount >= groupBuy.gb_min) {
+// 						console.log(02);
+						$("#addToCart").prop("disabled" , true)
+						$("#gb_price").append(`<div>參團數量已額滿</div>`)
+
+					}else if(Date.parse(groupBuy.gbstart_date) < now && Date.parse(groupBuy.gbend_date) > now){
+						$("#addToCart").prop("disabled" , false)
+// 						console.log(03);
+					}else if(Date.parse(groupBuy.gbend_date) < now ){
+						$("#addToCart").prop("disabled" , true)
+// 						console.log(04);
+					};
+				})
+		}
+
+
+
+
+		//取出一個groupbuyitem
+		getonegroupbuyitem(gbitem_id);
+		function getonegroupbuyitem(e) {
+			// $.ajax({
+			// 	url: `/CGA104G1/GroupBuyItemGetIOneJSONServlet?gbitem_id=${gbitem_id}`,
+			// 	type: "POST",
+			// 	success: function (data) {
+			// 		let onegroupbuyitem = JSON.parse(data);
+			// 		// console.log("我是ddd" + ddd);
+			// 		let divGbitemID = document.querySelector(".mb-3")
+			// 		let divGbitemIDHTML = "";
+			// divGbitemIDHTML = `<div>
+			// 			${onegroupbuyitem.gbitem_name}
+			// 			</div>
+			// 			`				}
+			// })
+
+
+			fetch(`/CGA104G1/GroupBuyItemGetIOneJSONServlet?gbitem_id=${gbitem_id}`, { method: 'post' }) /*
+	servlet執行完後將傳回的字串轉成promise */
+				.then(resp => resp.json()) /* 將拿到的promise物件轉成js物件 */
+				.then(item => { /* 物件本人 */
+
+					$(".mb-3").html(`<div >${item.gbitem_name}</div>`);
+					$("#gbitem_price").html(`
+							<div class="product-price">
+							<span class="old-price" style="font-size:20px">原價$${item.gbitem_price}</span>
+							</div>
+							`);
+
+					$("#product-amount").append(`
+							<input type="hidden" name="gbitem_name" value="${item.gbitem_name}">
+					        <input type="hidden" name="gbitem_content" value="${item.gbitem_content}">
+					        <input type="hidden" name="gbitem_price" value="${item.gbitem_price}">
+					        <input type="hidden" name="gbitem_status" value="${item.gbitem_status}">
+					`);
+
+
+
+				})
+		}
+
+		//取出圖片
+		showgroupbuypicture(gbitem_id);
+		function showgroupbuypicture(data) {
+			//取出圖片
+			$.ajax({
+				url: `/CGA104G1/groupBuyItemPicture/groupBuyItemPictureGetAll.do?gbitem_id=${gbitem_id}`,
+				type: "POST",
+				success: function (data) {
+					showAllPic(data);
+				}
+			})
+			function showAllPic(data) {
+				let pics = JSON.parse(data);
+				// console.log(pics);
+				let div1 = document.querySelector(".slides");
+				let div2 = document.querySelector(".itemdetail");
+				let groupBuyItemPictureHTML1 = "";
+				let groupBuyItemPictureHTML2 = "";
+				//         groupBuyItemPictureHTML += `
+				// <div class="carousel-item active">
+				//     <img src="/CGA104G1/groupBuyItemPicture/groupBuyItemPicture.do?gbitem_id=${pics[0]}" class="d-block w-100" alt="...">
+				// </div>
+				// `;
+				groupBuyItemPictureHTML1 = `
+             <div >
+            <img src="/CGA104G1/groupBuyItemPicture/groupBuyItemPicture.do?gbitem_id=${pics[0]}" >
+        </div>
+        `;
+
+				for (let i = 1; i < pics.length; i++) {
+					groupBuyItemPictureHTML2 += `
+             <div >
+            <img src="/CGA104G1/groupBuyItemPicture/groupBuyItemPicture.do?gbitem_id=${pics[i]}" >
+        </div>
+        `;
+				}
+				div1.innerHTML = groupBuyItemPictureHTML1;
+				div2.innerHTML = groupBuyItemPictureHTML2;
+			}
+		}
+
+	</script>
+
+	<script>
+		function getProjectName() {
+			let path = window.location.pathname;
+			let webCtx = path.substring(0, path.indexOf('/', 1));
+
+			return webCtx;
+		}
+
+
+		let pjName = getProjectName();
+		const url = pjName + '/CGA104G1/Group_JoinServlet';
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id: 1,
+				title: 'foo',
+				body: 'bar',
+				userId: 1,
+			})
+		})
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					const { status, statusText } = response;
+					throw Error(`${status}: ${statusText}`);
+				}
+			})
+			.then(obj => console.log(obj))
+			.catch(({ message }) => div.textContent = message);
+	</script>
+
+	<!--  NavBar  -->
+	<script src="../../resources/static/js/navbar.js"></script>
+	<!--  Footer  -->
+	<script src="../../resources/static/js/footer.js"></script>
+
+
+	<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+	<!--  Cart -->
+	<script type="text/javascript" src="../../resources/static/js/cart.js"></script>
+</body>
+
+</html>

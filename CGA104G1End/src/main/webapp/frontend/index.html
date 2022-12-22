@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-hart" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+
+    <!-- import bootstrap 5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- import font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+
+    <!-- import jquery-3.6.0 -->
+    <script type="text/javascript" src="../resources/static/js/jquery-3.6.0.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- import icon -->
+    <script src="https://kit.fontawesome.com/b5ef6b60f3.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="../resources/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../resources/static/css/home.css"/>
+    <style>
+        .parent {
+            background: gray;
+            width: 100%;
+            height: 600px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .child {
+            width: 300px;
+            height: 10px;
+        }
+
+
+        .center {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .button {
+
+            --offset: 10px;
+            --border-size: 2px;
+            display: block;
+            position: relative;
+            padding: 1.5em 3em;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 0;
+            background: transparent;
+            color: #e55743;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            outline: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0;
+            box-shadow: inset 0 0 0 var(--border-size) currentcolor;
+            transition: background 0.8s ease;
+        }
+
+        .button:hover {
+            background: rgba(100, 0, 0, 0.03);
+        }
+
+        .button__horizontal, .button__vertical {
+            position: absolute;
+            top: var(--horizontal-offset, 0);
+            right: var(--vertical-offset, 0);
+            bottom: var(--horizontal-offset, 0);
+            left: var(--vertical-offset, 0);
+            transition: transform 0.8s ease;
+            will-change: transform;
+        }
+
+        .button__horizontal::before, .button__vertical::before {
+            content: "";
+            position: absolute;
+            border: inherit;
+        }
+
+        .button__horizontal {
+            --vertical-offset: calc(var(--offset) * -1);
+            border-top: var(--border-size) solid currentcolor;
+            border-bottom: var(--border-size) solid currentcolor;
+        }
+
+        .button__horizontal::before {
+            top: calc(var(--vertical-offset) - var(--border-size));
+            bottom: calc(var(--vertical-offset) - var(--border-size));
+            left: calc(var(--vertical-offset) * -1);
+            right: calc(var(--vertical-offset) * -1);
+        }
+
+        .button:hover .button__horizontal {
+            transform: scaleX(0);
+        }
+
+        .button__vertical {
+            --horizontal-offset: calc(var(--offset) * -1);
+            border-left: var(--border-size) solid currentcolor;
+            border-right: var(--border-size) solid currentcolor;
+        }
+
+        .button__vertical::before {
+            top: calc(var(--horizontal-offset) * -1);
+            bottom: calc(var(--horizontal-offset) * -1);
+            left: calc(var(--horizontal-offset) - var(--border-size));
+            right: calc(var(--horizontal-offset) - var(--border-size));
+        }
+
+        .button:hover .button__vertical {
+            transform: scaleY(0);
+        }
+
+        #memberImg img {
+            max-width: 60px !important;
+        }
+
+        @media screen and (max-width: 740px) {
+
+            .test02 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-flow: column wrap;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 160% 0 0 10% !important;
+                color: #fff;
+                transform: skewX(18deg);
+                transition: transform 1s, opacity 1s;
+                background-size: cover;
+            }
+
+            .test01 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-flow: column wrap;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 0 20% 100% 0 !important;
+                color: #fff;
+                transform: skewX(18deg);
+                transition: transform 1s, opacity 1s;
+                background-size: cover;
+            }
+
+            .skw-page__heading {
+                font-size: 20px;
+            }
+
+            .btn-outline-success, .btn-outline-primary {
+                margin: 10px;
+            }
+
+
+            .skw-page-1 .skw-page__half--left .skw-page__content {
+                background-image: url('../resources/static/image/pexels-tranmautritam-2194261 - 複製.jpg');
+            }
+
+            .skw-page-1 .skw-page__half--right .skw-page__content {
+                background: #292929;
+            }
+
+            .skw-page-2 .skw-page__half--left .skw-page__content {
+                background: #292929;
+            }
+
+            .skw-page-2 .skw-page__half--right .skw-page__content {
+                background-image: url("../resources/static/image/pexels-hana-brannigan-3981763 - 複製.jpg");
+            }
+
+            .skw-page-3 .skw-page__half--left .skw-page__content {
+                background-image: url("../resources/static/image/pexels-anna-shvets-5257345 - 複製.jpg");
+            }
+
+            .skw-page-3 .skw-page__half--right .skw-page__content {
+                background: #292929;
+            }
+
+            .skw-page-4 .skw-page__half--left .skw-page__content {
+                background: #292929;
+            }
+
+            .skw-page-4 .skw-page__half--right .skw-page__content {
+                background-image: url("../resources/static/image/pexels-tima-miroshnichenko-8376193 - 複製.jpg");
+            }
+
+            .skw-page-5 .skw-page__half--left .skw-page__content {
+                background-image: url("../resources/static/image/1145460 - 複製.jpg");
+            }
+        }
+
+        div.mobile {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            div.desktop {
+                display: none;
+            }
+
+            div.mobile {
+                display: block;
+                z-index: 1001;
+            }
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<div class="mobile" style="max-width: 1000px;">
+
+    <img src="../resources/static/image/pexels-wojciech-kumpicki-2071873.jpg"
+         style="max-width: 100%;background-size: cover;-moz-background-size: cover;position: absolute">
+
+    <div class="parent">
+        <div class="child center row" style="font-size: 20px">
+            <a class="button col-md-4"
+               href="/CGA104G1/frontend/item/shop.html"
+               style="color: #95ce7e; background-color: rgba(245,245,245,0.5)">
+                前往商城
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </a>
+            <button class="button col-md-4" style="visibility: hidden">
+                前往商城
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </button>
+            <a class="button col-md-4"
+                href="/CGA104G1/frontend/groupBuy/listallgroupbuy.html"
+               style="background-color: rgba(245,245,245,0.5)">
+                前往團購
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </a>
+            <button class="button col-md-4" style="visibility: hidden">
+                前往商城
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </button>
+            <a class="button col-md-4"
+                    href="/CGA104G1/frontend/article/select_page.jsp"
+                    style="color: #407bff; background-color: rgba(245,245,245,0.5);">
+                前往討論區
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- 首頁內容開始 -->
+<div class="skw-pages desktop">
+    <div class="skw-page skw-page-1 active">
+        <div class="skw-page__half skw-page__half--left">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content"></div>
+            </div>
+        </div>
+        <div class="skw-page__half skw-page__half--right">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content test02">
+                    <h2 class="skw-page__heading">想要為你家寶貝來點不一樣的嗎 ?</h2>
+                    <p class="skw-page__description">下滑看看我們為你準備了些什麼 . . .</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="skw-page skw-page-2">
+        <div class="skw-page__half skw-page__half--left">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content test01">
+                    <h2 class="skw-page__heading">來商城 種類俱全 應有盡有
+                        <a class="btn btn-outline-success btn-lg"
+                           href="/CGA104G1/frontend/item/shop.html">前往商城</a>
+                    </h2>
+                    <p class="skw-page__description">還是想看看 . . .</p>
+                </div>
+            </div>
+        </div>
+        <div class="skw-page__half skw-page__half--right">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="skw-page skw-page-3">
+        <div class="skw-page__half skw-page__half--left">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content"></div>
+            </div>
+        </div>
+        <div class="skw-page__half skw-page__half--right">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content test02">
+                    <h2 class="skw-page__heading">還是來看看專家都買了些什麼吧 !
+                        <a class="btn btn-outline-success btn-lg"
+                           href="/CGA104G1/frontend/groupBuy/listallgroupbuy.html">前往團購</a>
+                    </h2>
+                    <p class="skw-page__description">或是來點不一樣的話題 . . .</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="skw-page skw-page-4">
+        <div class="skw-page__half skw-page__half--left">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content test01">
+                    <h2 class="skw-page__heading">在線上獲得專業醫生的答覆 !
+                        <a class="btn btn-outline-primary btn-lg"
+                           href="/CGA104G1/frontend/article/select_page.jsp">前往討論區</a>
+                    </h2>
+                    <p class="skw-page__description">下滑沒東西囉 . . .</p>
+                </div>
+            </div>
+        </div>
+        <div class="skw-page__half skw-page__half--right">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="skw-page skw-page-5">
+        <div class="skw-page__half skw-page__half--left">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content"></div>
+            </div>
+        </div>
+        <div class="skw-page__half skw-page__half--right">
+            <div class="skw-page__skewed">
+                <div class="skw-page__content test02">
+                    <h2 class="skw-page__heading">既然你來到這了提醒你先領取折價券</h2>
+                    <p class="skw-page__description">以獲得更優惠的價格 !</p>
+                    <a class="btn btn-outline-secondary btn-lg"
+                       href="/CGA104G1/frontend/coupon/GetCoupon.html">領取折價券</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 首頁內容結束 -->
+
+<!-- import bootstrap 5.2.1 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+<!--  NavBar  -->
+<script src="../resources/static/js/navbar.js"></script>
+<!-- 導覽列登入狀態 -->
+<script type="text/javascript" src="../resources/static/js/getName.js"></script>
+<!--  Cart -->
+<script type="text/javascript" src="../resources/static/js/cart.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('header').css('margin-bottom', 0)
+
+        var curPage = 1;
+        var numOfPages = $(".skw-page").length;
+        var animTime = 1000;
+        var scrolling = false;
+        var pgPrefix = ".skw-page-";
+
+        function pagination() {
+            scrolling = true;
+
+            $(pgPrefix + curPage).removeClass("inactive").addClass("active");
+            $(pgPrefix + (curPage - 1)).addClass("inactive");
+            $(pgPrefix + (curPage + 1)).removeClass("active");
+
+            setTimeout(function () {
+                scrolling = false;
+            }, animTime);
+        };
+
+        function navigateUp() {
+            if (curPage === 1) return;
+            curPage--;
+            pagination();
+        }
+
+        function navigateDown() {
+            if (curPage === numOfPages) return;
+            curPage++;
+            pagination();
+        }
+
+        $(document).on("mousewheel DOMMouseScroll", function (e) {
+            if (scrolling) return;
+            if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+                navigateUp();
+            } else {
+                navigateDown();
+            }
+        });
+
+        $(document).on("keydown", function (e) {
+            if (scrolling) return;
+            if (e.which === 38) {
+                navigateUp();
+            } else if (e.which === 40) {
+                navigateDown();
+            }
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

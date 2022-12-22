@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!--        <script src="https://unpkg.com/vue@next"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <!--    datepicker-->
+    <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
+
+    <!--        sweetAlert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--        錯誤處理-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <title>修改商品詳情</title>
+
+    <style>
+        .contact-us {
+            font: 95% Arial, Helvetica, sans-serif;
+            max-width: 60%;
+            margin: 10px auto;
+            padding: 16px;
+            background: #F7F7F7;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        div.half {
+            display: inline-block;
+            width: 50%;
+            position: relative;
+        }
+
+        div.half .onehalf {
+            max-width: 97%;
+            padding: 6% !important;
+        }
+
+        .onehalf {
+            max-width: 48%;
+            flaot: left;
+        }
+
+        .dp__input {
+            border-radius: 50px;
+            border: 4px solid #1c5100;
+            padding: 3%;
+            margin-top: 5px;
+            margin-bottom: 29px;
+        }
+
+        .onequarter {
+            max-width: 25%;
+            flaot: left;
+        }
+
+        .message-box {
+            height: 200px;
+        }
+
+        .contact-us h1 {
+            background: #1d5000;
+            padding: 20px 0;
+            font-size: 140%;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-align: center;
+            color: #fff;
+            margin: -16px -16px 46px -16px;
+        }
+
+        .contact-us input[type="text"],
+        .contact-us input[type="date"],
+        .contact-us input[type="datetime"],
+        .contact-us input[type="email"],
+        .contact-us input[type="number"],
+        .contact-us input[type="search"],
+        .contact-us input[type="time"],
+        .contact-us input[type="url"],
+        .contact-us input[type="file"],
+        .contact-us textarea,
+        .contact-us select {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            background: #fff;
+            margin-bottom: 29px;
+            margin-top: 6px;
+            border: 4px solid #1c5100;
+            border-radius: 50px;
+            padding: 3%;
+            color: #555;
+            font: 95% Arial, Helvetica, sans-serif;
+        }
+
+        .contact-us input[type="text"]:focus,
+        .contact-us input[type="date"]:focus,
+        .contact-us input[type="datetime"]:focus,
+        .contact-us input[type="email"]:focus,
+        .contact-us input[type="number"]:focus,
+        .contact-us input[type="search"]:focus,
+        .contact-us input[type="time"]:focus,
+        .contact-us input[type="url"]:focus,
+        .contact-us textarea:focus,
+        .contact-us select:focus {
+            box-shadow: 0 0 5px #43D1AF;
+            padding: 3%;
+            border: 1px solid #43D1AF;
+        }
+
+        .contact-us .update,
+        .contact-us input[type="button"] {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            padding: 3%;
+            background: #5E9340;
+            border-bottom: 2px solid #4b7533;
+            border-top-style: none;
+            border-right-style: none;
+            border-left-style: none;
+            color: #fff;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+
+        .contact-us .update:hover,
+        .contact-us input[type="button"]:hover {
+            background: #7ea866;
+        }
+
+        form label {
+            margin-left: 20px;
+            font-weight: 800;
+            font-size: larger;
+        }
+
+        img {
+            width: 500px;
+            display: block;
+            margin: auto;
+        }
+
+        .spanImg {
+            display: block;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .deletePh :hover {
+            cursor: pointer;
+
+
+        }
+
+        .deletePh {
+            position: absolute;
+            right: 18%;
+            bottom: 0.5%;
+            border-radius: 9px;
+            border-style: solid;
+            border-color: #878181;
+            padding: 5px 8px;
+        }
+
+        .invalid-feedback {
+            margin-left: 16px;
+            color: red;
+            position: absolute;
+            top: 10px;
+            left: 300px;
+        }
+
+        .dp__input:hover {
+            border: 4px solid #1c5100;
+        }
+        .one{
+            width: 98.5%;
+            position: relative;
+
+        }
+        /*1/4 class:onequarter ,1/2 class:onehalf*/
+    </style>
+</head>
+<body>
+<div class="contact-us" id="app" v-cloak>
+    <h1>商品詳細資訊</h1>
+    <!--    @submit="onSubmit"-->
+    <v-form v-slot="{ errors }" enctype="multipart/form-data" @submit.prevent>
+        <div class="one">
+            <label>商品名稱</label>
+            <v-field type="text" placeholder="請輸入商品名稱" v-model="item.itemName" name="name"
+                     :rules="checkName"></v-field>
+            <error-message name="name" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品價錢</label>
+            <br>
+            <v-field type="number" class="onehalf" name="商品價錢" rules="required|min_value:1"
+                     placeholder="請輸入商品價錢" v-model="item.itemPrice"/>
+            </v-field>
+            <error-message name="商品價錢" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品種類</label>
+            <br>
+            <v-field v-model="item.itemtId" as="select" name="type" class="onehalf">
+                <option name="type" v-for="t in type" :value="t.itemtId" :selected="item.itemtId===t.itemtId">
+                    {{t.itemtName}}
+                </option>
+            </v-field>
+        </div>
+
+
+        <div class="half">
+            <label>商品庫存</label>
+            <br>
+            <v-field class="onehalf" type="number" name="商品庫存" placeholder="請輸入商品庫存"
+                     v-model="item.itemAmount"></v-field>
+            <error-message name="商品庫存" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品狀態</label>
+            <br>
+            <select v-model="item.itemStatus" class="onehalf">
+                <option value=1 :selected="item.itemStatus===1">
+                    上架
+                </option>
+                <option value=0>
+                    下架
+                </option>
+            </select>
+        </div>
+
+        <div style="width: 98.5%;">
+            <label>上架日期</label>
+            <br>
+            <Datepicker v-model="item.itemDate" :value-format="yyyy-MM-dd"></Datepicker>
+
+        </div>
+
+        <div style="width: 98.5%;">
+            <label>下架日期</label>
+            <br>
+            <Datepicker v-model="item.itemEnddate"></Datepicker>
+        </div>
+
+
+        <div style="width: 98.5%">
+            <label>新增圖片</label>
+            <input type="file" size="45" multiple="multiple" @change="upload($event.target.files)"/>
+        </div>
+
+
+        <div style="width: 98.5%">
+            <label>商品描述</label>
+            <textarea placeholder="Type your Message" class="message-box" v-model="item.itemContent"></textarea>
+        </div>
+
+        <div>
+            <label>商品圖片</label>
+            <br>
+            <span class="spanImg" v-for="photo in photos">
+                <img :src="`data:image/png;base64,${photo.photo}`">
+                <button @click="onDeleteButtonClick(photo.ipId)" class="deletePh"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></button>
+            </span>
+        </div>
+
+        <button class="update" @click="onSubmit">送出修改</button>
+    </v-form>
+</div>
+
+<script>
+    const {defineRule, Form, Field, ErrorMessage, configure} = VeeValidate
+    const {setLocale, loadLocaleFromURL, localize} = VeeValidateI18n
+    Object.keys(VeeValidateRules).forEach(rule => {
+        if (rule !== 'default') {
+            VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+        }
+    });
+    loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.5.7/dist/locale/zh_TW.json')
+    VeeValidate.configure({
+        generateMessage: VeeValidateI18n.localize('zh_TW'),
+        validateOnInput: true,
+    });
+    Vue.createApp({
+        data() {
+
+            return {
+                item: {},
+                type: [],
+                photos: [],
+                pjName: '',
+                selected: 0,
+                uploadPhotos: [],
+                pId: -1,
+
+            }
+        }, methods: {
+
+            checkName(value) {
+                if (!value) {
+                    return "商品名稱不得為空";
+                } else if (value.length < 2) {
+                    return "最少要輸入兩個字";
+                } else {
+                    return true;
+                }
+
+
+            },
+
+            onSubmit() {
+
+                axios.post('/CGA104G1/item/items?action=update', {item: this.item, photo: this.uploadPhotos})
+                    .then((resp) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '修改成功',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+                    })
+                setTimeout(function () {
+                    location = "listAllItems.html"
+                }, 2000)
+
+
+            },
+            onDeleteButtonClick(ipId) {
+                this.pId = ipId;
+                // const result = confirm("確定刪除此張照片嗎");
+                const result = Swal.fire({
+                    title: '確定刪除此張照片嗎?',
+
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '刪除',
+                    cancelButtonText: '取消'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        let pjName = getProjectName();
+                        axios.get(pjName + "/item/GetItemPhoto?action=DeletePhoto&ip_id=" + this.pId)
+                            .then((resp) => {
+                                if (resp.data.successful) {
+                                    Swal.fire(
+                                        '刪除成功!',
+                                        '您的商品照片已被刪除！',
+                                        'success'
+                                    ).then(() => {
+                                        location.reload();
+                                    })
+
+                                }
+
+                            })
+
+                    }
+                })
+
+            },
+
+
+            upload(fileLIst) {
+                let formData = new FormData();
+                console.log(fileLIst)
+                if (!fileLIst.length) {
+                    return
+                } else {
+                    for (let i = 0; i < fileLIst.length; i++) {
+                        let file = fileLIst[i];
+                        formData.append('files[' + i + ']', file);
+                        const render = new FileReader();
+                        render.readAsDataURL(file); //轉成base64
+                        render.onload = (event) => { //轉完後（資料讀取完畢時）-> 觸發onload
+                            let base64 = event.target.result;
+                            this.uploadPhotos.push(base64);
+                        }
+
+                    }
+                }
+            },
+            checkMinDate() {
+                let currentDay = new Date();
+                currentDay= moment(currentDay).format('YYYY-MM-DD')
+                let minDate = this.item.itemDate;
+                minDate = moment(minDate).format('YYYY-MM-DD')
+                return (minDate>=currentDay)? true : "此欄位必填,選擇日期不能小於今天"
+            }
+
+
+        },
+
+
+        components: {
+            Datepicker: VueDatePicker,
+            VForm: Form,
+            VField: Field,
+            ErrorMessage,
+
+        },
+        mounted() {
+
+            let itemId = sessionStorage.getItem("itemId");
+            let pjName = getProjectName();
+            // http://localhost:8080/BA_REI
+            axios.get(pjName + '/item/items?action=getOne_For_DisplayJS&itemId=' + itemId)
+                .then((resp) => {
+                        this.item = resp.data;
+                        this.selected = resp.data.itemtId
+                        console.log(resp.data);
+
+                    }
+                )
+
+            axios.get(pjName + '/item/type?action=getAllType')
+                .then((resp) => {
+                    this.type = resp.data;
+
+                    console.log(resp.data);
+                })
+
+
+            axios.get(pjName + "/item/items?action=GetAllPhotos&item_id=" + itemId)
+                .then((resp) => {
+                    console.log(resp.data)
+                    this.photos = resp.data;
+
+                })
+
+        }
+    }).mount("#app");
+
+
+    function getProjectName() {
+
+        let path = window.location.pathname;
+        let webCtx = path.substring(0, path.indexOf('/', 1));
+        this.pjName = webCtx;
+        return webCtx;
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+     -->
+
+    <!-- import bootstrap -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+            crossorigin="anonymous">
+
+    <!-- improt font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap"
+            rel="stylesheet">
+
+    <!-- import css stylesheet -->
+    <!--    <link rel="stylesheet" href="./css/style.css">-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
+    <!-- import jquery-3.6.0 -->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- import slick-carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+
+    <!-- import icon -->
+    <script src="https://kit.fontawesome.com/b5ef6b60f3.js" crossorigin="anonymous"></script>
+
+    <!--item_detail.css	-->
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/item_detail.css">
+
+    <!-- slider -->
+    <link href="https://cdn.bootcss.com/flexslider/2.6.3/flexslider.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/flexslider/2.6.3/jquery.flexslider-min.js"></script>
+
+    <!--	sweetalert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--	axios-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+
+    <style>
+
+        h1 {
+            font-weight: 400;
+            font-size: xx-large;
+        }
+
+        .flex-direction-nav a:before {
+            font-family: flexslider-icon;
+            font-size: 31px;
+            display: inline-block;
+            content: '\f001';
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+<main>
+    <div class="section product-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="onsale" id="onsale">Sale!</span> <a
+                        class="prettyphoto" data-rel="prettyPhoto[gallery]"
+                        href="images/shop/shop_6.jpg"> <!-- <img alt="" class="fullwidth" id="product-img"> -->
+                </a>
+                    <div class="flexslider">
+                        <ul class="slides"></ul>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <h1 id="product-title"></h1>
+
+                    <div class="price mt-1" id="product-price"></div>
+
+                    <div id="product-content"></div>
+
+                    <div class="mb-3"></div>
+                    <p class="stock in-stock">商品數量</p>
+                    <form class="cart">
+
+                        <div id="product-amount"></div>
+                        <a href="#" class="btn btn-rounded btn-dark" id="addToCart"
+                           onclick="addToCart()"><span>Add to cart</span> </a> <a href="#"
+                                                                                  class="btn btn-rounded btn-dark"
+                                                                                  onclick="addToTrace()"
+                                                                                  id="Trace"><span>trace</span></a>
+
+                    </form>
+                    <div class="product_meta">
+                        <span class="posted_in">Categories: <span id="product-category" style="font-weight:200"></span></span>
+                            <!--								<a href="#">Clothing</a></span> -->
+                            <!--                        <span class="tagged_as">Tags: <a-->
+                            <!--                            href="#">Art</a>, <a href="#">Design</a>, <a href="#">Music</a>,-->
+                            <!--								<a href="#">Photography</a></span>-->
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="commerce-tabs tabs mt-5 mb-4">
+                        <!-- Nav tabs -->
+                        <!-- <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs tabs text-center">
+                                <li><a class="active" href="#tab-content-1"
+                                    data-toggle="tab">Description</a></li>
+                                <li><a href="#tab-content-2" data-toggle="tab">Reviews</a>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- Tab panes -->
+
+                    </div>
+                </div>
+                <!-- <div class="col-sm-12">
+                    <div class="related-products">
+                        <h2>Related Products</h2>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="product-item">
+                                    <div class="thumb">
+                                        <a href="shop-detail.html"> <img
+                                            src="http://tk-themes.net/html-heli/demo/images/shop/shop_1.jpg"
+                                            alt="">
+                                        </a>
+                                        <div class="extra">
+                                            <div>
+                                                <p>
+                                                    <i class="pe-7s-cart"></i> <a href="#" class="btn-shop">Add
+                                                        to cart</a>
+                                                </p>
+                                                <p>
+                                                    <i class="pe-7s-search"></i> <a class="btn-shop"
+                                                        href="shop-detail.html">View item</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="shop-detail.html">
+                                        <h3 class="text-center">Basic Crop-top</h3>
+                                    </a>
+                                    <div class="info text-center">
+                                        <span class="price">$20.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="product-item">
+                                    <div class="thumb">
+                                        <a href="shop-detail.html"> <img
+                                            src="http://tk-themes.net/html-heli/demo/images/shop/shop_2.jpg"
+                                            alt="">
+                                        </a>
+                                        <div class="extra">
+                                            <div>
+                                                <p>
+                                                    <i class="pe-7s-cart"></i> <a href="#" class="btn-shop">Add
+                                                        to cart</a>
+                                                </p>
+                                                <p>
+                                                    <i class="pe-7s-search"></i> <a class="btn-shop"
+                                                        href="shop-detail.html">View item</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="shop-detail.html">
+                                        <h3 class="text-center">Black One-piece</h3>
+                                    </a>
+                                    <div class="info text-center">
+                                        <span class="price">$20.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="product-item">
+                                    <div class="thumb">
+                                        <a href="shop-detail.html"> <img
+                                            src="http://tk-themes.net/html-heli/demo/images/shop/shop_3.jpg"
+                                            alt="">
+                                        </a>
+                                        <div class="extra">
+                                            <div>
+                                                <p>
+                                                    <i class="pe-7s-cart"></i> <a href="#" class="btn-shop">Add
+                                                        to cart</a>
+                                                </p>
+                                                <p>
+                                                    <i class="pe-7s-search"></i> <a class="btn-shop"
+                                                        href="shop-detail.html">View item</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="shop-detail.html">
+                                        <h3 class="text-center">Blue dress</h3>
+                                    </a>
+                                    <div class="info text-center">
+                                        <span class="price">$20.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="product-item">
+                                    <div class="thumb">
+                                        <a href="shop-detail.html"> <img
+                                            src="http://tk-themes.net/html-heli/demo/images/shop/shop_4.jpg"
+                                            alt="">
+                                        </a>
+                                        <div class="extra">
+                                            <div>
+                                                <p>
+                                                    <i class="pe-7s-cart"></i> <a href="#" class="btn-shop">Add
+                                                        to cart</a>
+                                                </p>
+                                                <p>
+                                                    <i class="pe-7s-search"></i> <a class="btn-shop"
+                                                        href="shop-detail.html">View item</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="shop-detail.html">
+                                        <h3 class="text-center">Gray sweater</h3>
+                                    </a>
+                                    <div class="info text-center">
+                                        <span class="price">$20.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</main>
+<!-- import main.js -->
+<script src="./js/main.js"></script>
+
+<!-- import bootstrap 5.2.1 -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+<!-- import css  -->
+<link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+<!--  NavBar  -->
+<script src="../../resources/static/js/navbar.js"></script>
+<!--footer-->
+<script src="../../resources/static/js/footer.js"></script>
+
+
+<style>
+    body {
+        background: white;
+    }
+</style>
+
+<script>
+    let object = {};
+    let partstr = sessionStorage.getItem("part");
+    let part = partstr ? JSON.parse(partstr) : [];
+
+
+    let traceObject = {};
+    // let tracestr = sessionStorage.getItem("trace");
+    // let trace = tracestr ? JSON.parse(tracestr) : [];
+
+    (() => {
+        cartNum();
+        const itemId = sessionStorage.getItem('itemId'); /* 在sessionstorage裡抓到key='itemId'的value */
+        console.log(itemId);
+        let pjName = getProjectName();
+        fetch(`${pjName}/item/items?action=getOne_For_DisplayJS&itemId=${itemId}`, {method: 'get'})  /* servlet執行完後將傳回的字串轉成promise */
+            .then(resp => resp.json())    /* 將拿到的promise物件轉成js物件 */
+            .then(item => { /* 物件本人 */
+
+                $("#product-title").text(item.itemName);
+                $("#product-price").html(`<p id="price">NT$ ${item.itemPrice}</p>`);
+                $("#product-content").html(`<p>${item.itemContent}</p>`)
+                $("#product-amount").html(`
+   							<input type="number" step="1" min="1" max="${item.itemAmount}" name="quantity"
+							value="1" title="Qty" class="input-text qty text"
+							id="quantity" size="4"
+							pattern="[0-9]*" inputmode="numeric">
+   							`)
+                $("#product-category").html(item.itemtName);
+                console.log(item.itemtName);
+                object.itemId = sessionStorage.getItem('itemId');
+                object.itemPrice = item.itemPrice;
+                object.itemName = item.itemName;
+                object.itemContent = item.itemContent;
+
+                traceObject.itemId = sessionStorage.getItem('itemId');
+                traceObject.itemPrice = item.itemPrice;
+                traceObject.itemName = item.itemName;
+                traceObject.itemContent = item.itemContent;
+            })
+
+
+    })();
+
+    // getItem();
+    // async function getItem(){
+    // 	const itemId = sessionStorage.getItem('itemId'); /* 在sessionstorage裡抓到key='itemId'的value */
+    // 	let res=await fetch(`/BA_REI/item/items?action=getOne_For_DisplayJS&itemId=${itemId}`,{method:'get'})  /* servlet執行完後將傳回的字串轉成promise */
+    // 		let item=await res.json();
+    //
+    //
+    //
+    // 				$("#product-title").text(item.itemName);
+    // 				$("#product-price").append(`<ins id="price">${item.itemPrice}</ins>`);
+    // 				$("#product-content").append(`<p>${item.itemContent}</p>`)
+    // 				$("#product-amount").append(`
+    // 					<input type="number" step="1" min="1" max="${item.itemAmount}" name="quantity"
+    // 					value="1" title="Qty" class="input-text qty text"
+    // 					id="quantity" size="4"
+    // 					pattern="[0-9]*" inputmode="numeric">
+    // 					`)
+    //
+    // 				object.itemId=sessionStorage.getItem('itemId');
+    //
+    // 				object.price=item.itemPrice;
+    // 				object.name=item.itemName;
+    //
+    //
+    // }
+
+    getPhoto();
+
+
+    async function getPhoto() {
+        let item_id = sessionStorage.getItem('itemId');
+        let pjName = getProjectName();
+        let res = await fetch(`${pjName}/item/GetItemPhoto?action=getAllPhoto&item_id=` + item_id, {method: 'get'});
+        data = await res.json();
+        let count = 0;
+
+        data.forEach(e => {
+
+            if (count === 0) {
+                object.photo = e.photo;
+                traceObject.photo = e.photo;
+
+            }
+            $(".slides").append(`
+							<li><img src="data:image/jpeg;base64,${e.photo}" /></li>
+	  					`);
+            count++;
+        })
+        $(".flexslider").flexslider({
+            animation: "slide",
+            touch: true
+        });
+
+    }
+
+    function addToCart() {
+
+        object.quantity = +$("#quantity").val();
+        if (!part.some(item => item.itemId === object.itemId)) {
+            part.push(object);
+        }
+
+        sessionStorage.setItem("part" + '', JSON.stringify(part));
+
+        Swal.fire({
+            icon: 'success',
+            title: '加入成功',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        cartNum();
+        // sessionStorage.setItem(object.itemId+'',JSON.stringify(object));
+
+    }
+
+    function addToTrace() {
+
+        // let mem = JSON.parse(sessionStorage.getItem("mem-info"));
+        let pjName = getProjectName();
+
+
+        axios.post(pjName + "/item/items?action=trace", {"item": traceObject})
+            .then((resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '追蹤成功',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+
+    }
+
+    function cartNum() {
+        let part = sessionStorage.getItem("part");
+        if (part != null) {
+            let cartNum = JSON.parse(part).length;
+           $("#lblCartCount").text(cartNum);
+
+        }
+    }
+
+    function getProjectName() {
+        let path = window.location.pathname;
+        let webCtx = path.substring(0, path.indexOf('/', 1));
+        return webCtx;
+    }
+</script>
+
+
+<!-- 導覽列登入狀態 -->
+<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+
+</body>
+</html>

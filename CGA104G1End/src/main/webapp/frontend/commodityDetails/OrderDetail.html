@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>追蹤訂單詳情</title>
+
+    <!-- import bootstrap 5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- import font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+
+    <!-- import jquery-3.6.0 -->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- import icon -->
+    <script src="https://kit.fontawesome.com/b5ef6b60f3.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.11.0/qs.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/orderDetails.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+
+    <style>
+        body {
+            background: rgba(0, 0, 0, .6) url('../../resources/static/image/andrew-s-ouo1hbizWwo-unsplash.jpg') no-repeat fixed center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            z-index: -999999;
+            /*opacity: 30%;*/
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .area {
+            margin-bottom: 50px;
+        }
+
+        .rwding {
+            width: 100px;
+            height: 100px;
+            object-fit: cover
+
+        }
+
+        a {
+            color: #0a0a0a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+
+    <div id="app" class="container" v-cloak style="min-height:700px;background-color: rgba(255,255,255,0.51)">
+
+        <!--        <div class="py-5 text-center" style="position: relative; color: #ffffff; font-size: 2rem; z-index: 10; background: rgba(255,255,255,0.55); text-align: center; padding: 5px; letter-spacing: 10px; }-->
+        <!--             .stroke:before {position: absolute; z-index: -1; -webkit-text-stroke: 2px #fc98c4; content: attr(data-stroke)}">-->
+        <!--            <h1>{{ memberName }} 的訂單明細</h1>-->
+        <!--        </div>-->
+
+        <br>
+
+        <article v-for="(orders, index) in orders"
+                 :key="orders.ORDER_ID"
+                 class="card area">
+            <header class="card-header"> 訂單詳情</header>
+            <div class="card-body">
+                <h6>訂單編號: {{ orders.ORDER_ID }}</h6>
+                <article class="card">
+                    <div class="card-body row">
+                        <div class="col"><strong>下單日期: </strong> <br>{{ orders.ORDER_DATE }}</div>
+                        <div class="col"><strong>訂單狀態: </strong> <br>{{ statusFilter(orders.ORDER_STATUS) }}</div>
+                        <div class="col"><strong>物流編號: #</strong> <br>{{ orders.TRACKING_NUM }}</div>
+                    </div>
+                </article>
+
+                <div class="track">
+                    <div class="step"
+                         :class="(orders.ORDER_STATUS === '0'||orders.ORDER_STATUS === '2'||orders.ORDER_STATUS === '3'||orders.ORDER_STATUS === '6') ? 'active' : ''"><span
+                            class="icon"> <i
+                            class="fa fa-check"></i> </span> <span class="text">訂單已成立</span>
+                    </div>
+                    <div class="step"
+                         :class="(orders.ORDER_STATUS === '2'||orders.ORDER_STATUS === '3'||orders.ORDER_STATUS === '6'||orders.ORDER_STATUS === '6') ? 'active' : ''"><span
+                            class="icon"> <i
+                            class="fa fa-user"></i> </span> <span class="text">準備出貨中</span>
+                    </div>
+                    <div class="step"
+                         :class="(orders.ORDER_STATUS === '3'||orders.ORDER_STATUS === '6') ? 'active' : ''"><span
+                            class="icon"> <i
+                            class="fa fa-truck"></i> </span> <span
+                            class="text">正在運輸途中</span></div>
+                    <div class="step" :class="(orders.ORDER_STATUS === '6') ? 'active' : ''"><span class="icon"> <i
+                            class="fa fa-box"></i> </span> <span
+                            class="text">已送達</span></div>
+                </div>
+                <hr>
+                <div class="mt-44 align-self-end">
+                    訂單總金額: NT$ {{ orders.FINAL_PRICE }}
+                </div>
+
+                <hr>
+                <div class="row gap-2 mx-auto justify-content-md-end">
+                    <button class="col-md-12 btn btn-light" data-bs-target="#myModal" data-bs-toggle="modal"
+                            @click="showMore(orders, index)">查看詳情
+                    </button>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-if="orders.ORDER_STATUS === '0'">
+                        <button class="col-md-2 float-right btn btn-outline-danger"
+                                @click="repay(orders, index)">繼續完成付款
+                        </button>
+                    </div>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-else-if="orders.ORDER_STATUS === '3'">
+                        <button class="col-md-2 float-right btn btn-outline-success"
+                                @click="finishOrder(orders, index)">完成訂單
+                        </button>
+                    </div>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-else-if="orders.ORDER_STATUS === '4'">
+                        <button class="col-md-2 float-right btn btn-danger" disabled>取消審核中</button>
+                    </div>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-else-if="orders.ORDER_STATUS === '6'">
+                        <button class="col-md-2 float-right btn btn-outline-warning"
+                                @click="returnOrder(orders, index)">退/換貨申請
+                        </button>
+                    </div>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-else-if="orders.ORDER_STATUS === '7'">
+                        <button class="col-md-2 float-right btn btn-success" disabled>退/換貨申請審核中</button>
+                    </div>
+                    <div class="row gap-2 mx-auto justify-content-md-end"
+                         v-else-if="orders.ORDER_STATUS === '8'">
+                        <button class="col-md-2 float-right btn btn-success" disabled>退/換貨處理中</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </article>
+        <div class="py-2">
+            <div class="modal modal-lg fade" id="myModal">
+                <div class="modal-dialog">
+
+                    <div class="modal-content row d-flex justify-content-center">
+                        <div class="modal-header">
+                            <h5 class="modal-title">商品詳情</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="orderForm"></div>
+                        <div class="modal-body">
+
+                            <table class="container media align-items-lg-center flex-column flex-lg-row p-3">
+                                <tbody class="media-body">
+
+                                <tr class=" justify-content-center mt-1"
+                                    v-for="(details, index) in details"
+                                    :key="details.itemId">
+
+                                    <td>
+                                        <img :src="'data:image/jpeg;base64,' + details.photo" alt="productImg"
+                                             class="rwding rounded">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link" @click="showItem(details, index)">
+                                            {{ details.itemName }}
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <h6 class="font-weight-bold my-2">NT$ {{ details.itemPrice }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="font-weight-bold my-2">商品數量 {{ details.cdAmount }}</h6>
+                                    </td>
+                                    <!--                                        <ul class="list-inline small">-->
+                                    <!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>-->
+                                    <!--                                            </li>-->
+                                    <!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>-->
+                                    <!--                                            </li>-->
+                                    <!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>-->
+                                    <!--                                            </li>-->
+                                    <!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>-->
+                                    <!--                                            </li>-->
+                                    <!--                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>-->
+                                    <!--                                        </ul>-->
+                                </tr>
+                                </tbody>
+
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- import bootstrap 5.2.1 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+
+<!-- import vue.js  -->
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vue-router@4"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+<!--  NavBar  -->
+<script src="../../resources/static/js/navbar.js"></script>
+<!--  Footer  -->
+<script src="../../resources/static/js/footer.js"></script>
+
+
+<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+<!--  Cart -->
+<script type="text/javascript" src="../../resources/static/js/cart.js"></script>
+
+<script>
+
+    let vm = Vue.createApp({
+        data() {
+            return {
+                filterSta: '',
+                filterStatus: '',
+                isModalVisible: false,
+                memberId: '',
+                memberName: '',
+                orders: [],
+                details: []
+            }
+        },
+        beforeCreate() {
+
+
+            var qs = Qs
+            axios.post('/CGA104G1/ListOrderDetailsServlet', qs.stringify({}))
+                .then(res => {
+                    if (res.data.length === 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '你還沒有任何訂單喔!',
+                            text: '趕快去看看吧!',
+                            footer: '<div class="gap-2">' +
+                                '<a class="btn btn-success" href="/CGA104G1/frontend/item/shop.html"><strong>前往商城</strong></a>' +
+                                '<a class="btn" style="visibility: hidden">TEST</a>' +
+                                '<a class="btn btn-warning" href="/CGA104G1/frontend/groupBuy/listallgroupbuy.html"><strong>前往團購</strong></a>' +
+                                '</div>'
+                        })
+                        setTimeout(function () {
+                            window.location.assign('/CGA104G1/frontend/item/shop.html')
+                        }, 2000)
+                    }
+                    this.orders = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
+        mounted() {
+
+        },
+        methods: {
+            statusFilter: function (val) {
+                switch (val) {
+                    case '0':
+                        return '等待付款中'
+                    case '1':
+                        return '未完成付款，訂單自動取消'
+                    case '2':
+                        return '已完成付款，準備出貨中'
+                    case '3':
+                        return '正在運輸途中'
+                    case '4':
+                        return '取消訂單審核中'
+                    case '5':
+                        return '未取貨，退回平台'
+                    case '6':
+                        return '已完成取貨'
+                    case '7':
+                        return '退/換貨申請中'
+                    case '8':
+                        return '退/換貨處理中'
+                    case '9':
+                        return '訂單已取消'
+                }
+            },
+            showMore: function (orders, index) {
+                var qs = Qs
+                axios.post('/CGA104G1/MoreDetailsServlet', qs.stringify({
+                    orderId: this.orders[index].ORDER_ID
+                }))
+                    .then(res => {
+                        console.log(res);
+                        this.details = res.data
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
+            repay: function (orders, index) {
+                var qs = Qs
+                axios.post('/CGA104G1/UpdateOrderServlet', qs.stringify({
+                    orderId: this.orders[index].ORDER_ID, action: 'repay'
+                }))
+                    .then(res => {
+                        console.log(res);
+                        $("#orderForm").html(res.data)
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
+            returnOrder: async function (orders, index) {
+                const {value: formValues} = await Swal.fire({
+                    title: '退/換貨原因說明',
+                    html:
+                        '<div>後續將會有客服人員為您提供後續服務</div>' + '<br>' +
+                        '<textarea id="swal-input1" class="form-control">',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return document.getElementById('swal-input1').value
+                    }
+                })
+                if (formValues) {
+                    var qs = Qs
+                    axios.post('/CGA104G1/UpdateOrderServlet', qs.stringify({
+                        orderId: this.orders[index].ORDER_ID, orderOther: formValues, action: "return"
+                    }))
+                        .then(res => {
+                            console.log(res);
+                            this.details = res.data
+                            window.location.reload()
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    Swal.fire({
+                        icon: 'success',
+                        title: '請耐心等候客服人員回應~',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '打點內容吧...',
+                    })
+                }
+            },
+            finishOrder: function (details, index) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-warning'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: '確認收到商品了嗎?',
+                    text: "完成訂單後若有瑕疵仍能更換商品",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: '確認送出',
+                    cancelButtonText: '再次確認',
+                    reverseButtons: true
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var qs = Qs;
+                        axios.post('/CGA104G1/UpdateOrderServlet', qs.stringify({
+                            orderId: this.orders[index].ORDER_ID, action: 'finish'
+                        }))
+                            .then(res => {
+                                console.log(res);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '成功完成訂單',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 2000)
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            '還未完成訂單',
+                            '請在收到商品後再確認一次 :)',
+                            'warning'
+                        )
+                    }
+                })
+            },
+            showItem: function (details, index) {
+                let itemId = this.details[index].itemId
+                sessionStorage.setItem('itemId', itemId);
+                window.location.assign('/CGA104G1/frontend/item/item_detail.html')
+            }
+        }
+    })
+
+    vm.mount('#app')
+
+</script>
+
+
+</body>
+
+</html>

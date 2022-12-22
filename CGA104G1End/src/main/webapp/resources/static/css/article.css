@@ -1,0 +1,192 @@
+		/*設定版型及背景*/
+		.none {
+            height: 80px;
+        }
+        
+        .container{
+        	width: 70%;
+        	float: left;
+        }
+        
+        .container2 {
+        	display: block;
+        	width: 30%;
+        	float: right;
+        }
+        
+        body::-webkit-scrollbar {
+    		display: none;
+		}
+
+        .evenarticle {
+            background-color: white;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .title {
+            width: 100%;
+            height: 30px;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .ptime {
+            width: 100px;
+            font-size: 10px;
+            color: rgb(105, 105, 105);
+            text-align: center;
+        }
+
+        .author {
+            width: 140px;
+            text-align: center;
+        }
+
+        .atitle {
+            width: 500px;
+            text-align: center;
+/*             font-weight: 700; */
+        }
+        
+        .atitle_but {
+        	font-weight: 700;
+        }
+
+        .push {
+            width: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: lightcoral;
+            text-align: center;
+        }
+
+        .sort {
+            width: 120px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .atitle_but{
+        	background: none;
+        	outline: none;
+        	border: none;
+        }
+        
+        .titlesty{
+        	color: white;
+        	font-weight: 700;
+        	font-size: 16px;
+        }
+        
+        .btn {
+         border-radius: 20px;
+        }
+        
+        #logo {
+			width: 100px;
+			height: 40px;
+		}
+		
+		.evenarticle:nth-child(even) {
+			background-color: rgb(240, 240, 240);
+		}
+		
+		.evenarticle:hover {
+			background-color: rgb(255, 252, 224);
+		}
+		
+		.displayBox{
+		    background-color:white;
+		    margin-right:20px;
+		    box-shadow:-3px -3px 9px gray;
+		    margin-bottom: 20px;
+        }
+		
+		/* 設定動作區塊 */
+		.form{
+			width:100%;
+			height: 150px;
+			text-align: center;
+			padding-right: 10px;
+		}
+		
+		.act{
+			width: 300px;
+			margin-bottom: 5px;
+			float: right;
+		}
+		
+		/* 設定廣告區塊 */
+		.ad {
+			width:320px;
+			height: 320px;
+			background-color: pink;
+			float: right;
+		}
+		
+		/* 		設定搜尋區塊 */
+		.searchBlock {
+			display: flex;
+			margin-left: 20px;
+			width: 65%;
+			align-items: center;
+            justify-content: center;
+			margin-bottom: 20px;
+			background-color: white;
+			border-image: linear-gradient(45deg, gold, deeppink) 1;
+            clip-path: inset(0px round 10px);
+            animation: huerotate 6s infinite linear;
+            filter: hue-rotate(360deg);
+		}
+		
+		@keyframes huerotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+		
+		.sortSearch {
+			display: inline-block;
+		}
+		
+		.artSearch {
+			display: inline-block;
+		}
+		
+		.select, .searchInput {
+			height: 30px;
+			border-radius: 20px;
+			text-align: center;
+			border: 2px solid pink;
+		}
+		
+		.btnSmall {
+			border-radius: 20px;
+			height: 30px;
+			padding: 0 12px;
+		}
+		
+		.searchTitle{
+			font-size: 18px;
+			font-weight: 700;
+			color: blue;
+		}
+		
+		/* 		設定頁數 */
+		.page {
+			margin-top: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center !important;
+		}

@@ -1,0 +1,150 @@
+		/*設定背景顏色 */
+		section {
+		height: 100%; 
+	    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+	    background-color: #FFDEE9;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+		}
+		/* 設定按鈕位置 */
+        .btnArea {
+            text-align: right;
+            padding-right: 22px;
+        }
+
+        /* 設定公告顯示表頭外觀 */
+        .newsHead {
+            display: flex;
+            background-color: #FFC107;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .nTitle {
+            width: 60%;
+        }
+
+        .nTime {
+            width: 30%;
+        }
+
+        .nEmp {
+            width: 10%;
+        }
+
+        .none {
+            height: 10px;
+        }
+
+        /* 設定公告顯示表內容 */
+        .allNews {
+            width: 100%;
+            display: flex;
+            text-align: center;
+        }
+
+        .Title {
+            width: 60%;
+        }
+
+        .Time {
+            width: 30%;
+        }
+
+        .Emp {
+            width: 10%;
+        }
+
+        ::after {
+            display: none !important;
+        }
+
+        .accordion-body {
+            text-align: center;
+        }
+
+        .addTitle {
+            width: 100%;
+        }
+
+        .readNews {
+            border: none;
+            resize: none;
+            outline: none;
+            width: 100%;
+            min-height: 80px;
+            height: auto;
+            text-align: center;
+        }
+        
+        [aria-expanded="true"].accordion-button{
+        	background-color: hsla(168, 100%, 50%, 0.2);
+            clip-path: inset(0px round 10px);
+            animation: huerotate 6s infinite linear;
+            filter: hue-rotate(360deg);
+        }
+        
+        .accordion-button:nth-child(even) {
+			background-color: rgb(240, 240, 240);
+		}
+
+        @keyframes huerotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+        
+        .displayBox{
+		    background-color:#eee;
+		    margin-right:20px;
+		    box-shadow:-3px -3px 9px gray;
+		    margin-bottom: 20px;
+        }
+
+        /* 設定新增公告區塊 */
+        .addWord {
+            color: #33b5e5;
+            font-weight: 700;
+        }
+
+        .addArea {
+            padding-right: 22px;
+        }
+        
+        .btn-info{
+        	margin-top: 10px;
+        }
+        
+        .titleBlock{
+        	color: #33b5e5;
+        	font-size: 24px;
+        	font-weight: 700;
+        	width: 100%;
+        	text-align: center;
+        }
+        
+        .form {
+        	padding: 10px;
+        	margin-bottom: 15px;
+        	border: 2px solid;
+            border-image: linear-gradient(45deg, gold, deeppink) 1;
+            clip-path: inset(0px round 10px);
+            animation: huerotate 6s infinite linear;
+            filter: hue-rotate(360deg);
+        }
+
+        @keyframes huerotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+        

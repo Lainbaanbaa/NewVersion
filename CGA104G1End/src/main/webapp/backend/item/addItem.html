@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!--        <script src="https://unpkg.com/vue@next"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <!--    datepicker-->
+    <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
+    <!--        sweetAlert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--        錯誤處理-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <title>新增商品</title>
+
+    <style>
+        .contact-us {
+            font: 95% Arial, Helvetica, sans-serif;
+            max-width: 60%;
+            margin: 10px auto;
+            padding: 16px;
+            background: #F7F7F7;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        div.half {
+            display: inline-block;
+            width: 50%;
+            position: relative;
+        }
+
+        div.half .onehalf {
+            max-width: 97%;
+            padding: 6% !important;
+        }
+
+        .onehalf {
+            max-width: 48%;
+            flaot: left;
+        }
+
+        .dp__input {
+            border-radius: 50px;
+            border: 4px solid #1c5100;
+            padding: 3%;
+            margin-top: 5px;
+            margin-bottom: 29px;
+        }
+
+        .onequarter {
+            max-width: 25%;
+            flaot: left;
+        }
+
+        .message-box {
+            height: 200px;
+        }
+
+        .contact-us h1 {
+            background: #1d5000;
+            padding: 20px 0;
+            font-size: 140%;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-align: center;
+            color: #fff;
+            margin: -16px -16px 46px -16px;
+        }
+
+        .contact-us input[type="text"],
+        .contact-us input[type="date"],
+        .contact-us input[type="datetime"],
+        .contact-us input[type="email"],
+        .contact-us input[type="number"],
+        .contact-us input[type="search"],
+        .contact-us input[type="time"],
+        .contact-us input[type="url"],
+        .contact-us input[type="file"],
+        .contact-us textarea,
+        .contact-us select {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            background: #fff;
+            margin-bottom: 29px;
+            margin-top: 6px;
+            border: 4px solid #1c5100;
+            border-radius: 50px;
+            padding: 3%;
+            color: #555;
+            font: 95% Arial, Helvetica, sans-serif;
+        }
+
+        .contact-us input[type="text"]:focus,
+        .contact-us input[type="date"]:focus,
+        .contact-us input[type="datetime"]:focus,
+        .contact-us input[type="email"]:focus,
+        .contact-us input[type="number"]:focus,
+        .contact-us input[type="search"]:focus,
+        .contact-us input[type="time"]:focus,
+        .contact-us input[type="url"]:focus,
+        .contact-us textarea:focus,
+        .contact-us select:focus {
+            box-shadow: 0 0 5px #43D1AF;
+            padding: 3%;
+            border: 1px solid #43D1AF;
+        }
+
+        .contact-us .insert,
+        .contact-us input[type="button"] {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            padding: 3%;
+            background: #5E9340;
+            border-bottom: 2px solid #4b7533;
+            border-top-style: none;
+            border-right-style: none;
+            border-left-style: none;
+            color: #fff;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+
+        .contact-us .update:hover,
+        .contact-us input[type="button"]:hover {
+            background: #7ea866;
+        }
+
+        form label {
+            margin-left: 20px;
+            font-weight: 800;
+            font-size: larger;
+        }
+
+        img {
+            width: 500px;
+            display: block;
+            margin: auto;
+        }
+
+        .spanImg {
+            display: block;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .deletePh :hover {
+            cursor: pointer;
+
+
+        }
+
+        .deletePh {
+            position: absolute;
+            right: 18%;
+            bottom: 0.5%;
+            border-radius: 9px;
+            border-style: solid;
+            border-color: #878181;
+            padding: 5px 8px;
+        }
+
+        .invalid-feedback {
+            margin-left: 16px;
+            color: red;
+            position: absolute;
+            top: 10px;
+            left: 300px;
+        }
+
+        .dp__input:hover {
+            border: 4px solid #1c5100;
+        }
+        .one{
+            width: 98.5%;
+            position: relative;
+
+        }
+        /*1/4 class:onequarter ,1/2 class:onehalf*/
+    </style>
+</head>
+<body>
+<div class="contact-us" id="app" v-cloak>
+    <h1>商品詳細資訊</h1>
+    <v-form v-slot="{ errors,onSubmit }" enctype="multipart/form-data" @submit="onSubmit(submitForm)">
+        <div  class="one">
+            <label>商品名稱</label>
+            <v-field type="text" placeholder="請輸入商品名稱" v-model="item.itemName" name="商品名稱"
+                     :rules="checkName"></v-field>
+            <error-message name="商品名稱" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品價錢</label>
+            <br>
+            <v-field type="number" class="onehalf" name="商品價錢" rules="required|min_value:1" placeholder="請輸入商品價錢"
+                     v-model="item.itemPrice"/>
+            </v-field>
+            <error-message name="商品價錢" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品種類</label>
+            <br>
+            <v-field v-model="item.itemtId" as="select" name="type" class="onehalf">
+                <option name="type" v-for="t in type" :value="t.itemtId" :selected="t.itemtId===1">
+                    {{t.itemtName}}
+                </option>
+            </v-field>
+        </div>
+
+
+        <div class="half">
+            <label>商品庫存</label>
+            <br>
+            <v-field class="onehalf" type="number" name="商品庫存" placeholder="請輸入商品庫存"
+                     rules="required|min_value:1" v-model="item.itemAmount"></v-field>
+            <error-message name="商品庫存" class="invalid-feedback"></error-message>
+        </div>
+
+        <div class="half">
+            <label>商品狀態</label>
+            <select v-model="item.itemStatus" class="onehalf">
+
+                <option value=1>
+                    上架
+                </option>
+                <option value=0>
+                    下架
+                </option>
+            </select>
+        </div>
+
+        <div style="width: 98.5%;" class="one">
+            <label>上架日期</label>
+            <br>
+            <Datepicker v-model="item.itemDate"></Datepicker>
+            <v-field  v-show="false" type="date" :rules="checkMinDate" name="上架時間" v-model="item.itemDate"></v-field>
+            <error-message name="上架時間" class="invalid-feedback"></error-message>
+
+        </div>
+
+        <div style="width: 98.5%;" class="one">
+            <label>下架日期</label>
+            <br>
+            <Datepicker v-model="item.itemEnddate"></Datepicker>
+            <v-field  v-show="false" type="date" :rules="checkMaxDate" name="上架時間" v-model="item.itemEnddate"></v-field>
+            <error-message name="上架時間" class="invalid-feedback"></error-message>
+
+        </div>
+
+
+
+        <div style="width: 98.5%">
+            <label>新增圖片</label>
+            <input type="file" size="45" multiple="multiple" @change="upload($event.target.files)"/>
+        </div>
+
+
+        <div style="width: 98.5%" class="one">
+            <label>商品描述</label>
+<!--            <v-field placeholder="Type your Message" class="message-box" v-model="item.itemContent"></v-field>-->
+            <v-field type="text" placeholder="請輸入商品描述" class="message-box" v-model="item.itemContent" name="商品描述"
+                     :rules="checkContent"></v-field>
+            <error-message name="商品描述" class="invalid-feedback"></error-message>
+        </div>
+
+        <button class="insert">新增商品</button>
+    </v-form>
+</div>
+
+
+
+<script>
+    const {defineRule, Form, Field, ErrorMessage, configure} = VeeValidate
+    const {setLocale, loadLocaleFromURL, localize} = VeeValidateI18n
+    Object.keys(VeeValidateRules).forEach(rule => {
+        if (rule !== 'default') {
+            VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+        }
+    });
+    loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.5.7/dist/locale/zh_TW.json')
+    VeeValidate.configure({
+        generateMessage: VeeValidateI18n.localize('zh_TW'),
+        validateOnInput: true,
+    });
+    Vue.createApp({
+        data() {
+
+            return {
+                item: {},
+                type: [],
+                photos: [],
+                pjName: '',
+                selected: 0
+            }
+        }, methods: {
+
+            checkName(value) {
+                if (!value) {
+                    return "商品名稱不得為空";
+                } else if (value.length < 2) {
+                    return "最少要輸入兩個字";
+                } else {
+                    return true;
+                }
+
+
+            },
+            checkMinDate() {
+                let currentDay = new Date();
+                currentDay= moment(currentDay).format('YYYY-MM-DD')
+                let minDate = this.item.itemDate;
+                minDate = moment(minDate).format('YYYY-MM-DD')
+                return (minDate>=currentDay)? true : "上架日期必填,選擇日期不能小於今天"
+            },
+            checkMaxDate(){
+                let minDate =  this.item.itemDate;
+                minDate = moment(minDate).format('YYYY-MM-DD')
+                let maxDate = this.item.itemEnddate;
+                maxDate = moment(maxDate).format('YYYY-MM-DD')
+                return (maxDate>=minDate)? true : "下架日期必填,選擇的日期不能小於上架日期"
+            },
+            checkContent(value){
+                if (!value) {
+                    return "商品描述不得為空";
+                } else {
+                    return true;
+                }
+            },
+            onSubmit() {
+                let pjName = getProjectName();
+                axios.post(pjName+'/item/items?action=insertItem',{item: this.item, photo: this.photos})
+                    .then((resp) => {
+                            if (resp.data.successful) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '新增成功',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            }
+
+
+                    })
+                setTimeout(function () {
+                    location = "listAllItems.html"
+                }, 2000)
+
+
+            },
+
+            upload(fileLIst) {
+                let formData = new FormData();
+                console.log(fileLIst)
+                if (!fileLIst.length) {
+                    return
+                } else {
+                    for (let i = 0; i < fileLIst.length; i++) {
+                        let file = fileLIst[i];
+                        formData.append('files[' + i + ']', file);
+                        const render = new FileReader();
+                        render.readAsDataURL(file); //轉成base64
+                        render.onload = (event) => { //轉完後（資料讀取完畢時）-> 觸發onload
+                            let base64 = event.target.result;
+                            this.photos.push(base64);
+                        }
+
+                    }
+                }
+            },
+
+
+
+        },
+        components: {
+            Datepicker: VueDatePicker,
+            VForm: Form,
+            VField: Field,
+            ErrorMessage,
+
+        },
+        mounted() {
+
+
+            let pjName = getProjectName();
+            axios.get(pjName + '/item/type?action=getAllType')
+                .then((resp) => {
+                    this.type = resp.data;
+
+                    console.log(resp.data);
+                })
+
+
+        }
+    }).mount("#app");
+
+
+    function getProjectName() {
+
+        let path = window.location.pathname;
+        let webCtx = path.substring(0, path.indexOf('/', 1));
+        this.pjName = webCtx;
+        return webCtx;
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+nav {
+    background-color: #ffffff17;
+    font-size: 20px;
+    position: fixed;
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        margin-bottom: 30%;
+    }
+}
+
+.jumbotron {
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    background-color: var(--bs-light);
+    border-radius: .3rem;
+}
+
+header {
+    margin-bottom: 10%;
+}
+
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+@media screen and( max-width: 576px) {
+    #dropdownMenuLink {
+        display: none;
+    }
+}
+
+.dropdown-item {
+    font-size: 20px;
+}
+
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+/* footer 樣式 */
+footer {
+    background: #fbaa70;
+    /*padding: 50px 10px;*/
+    font-size: 18px;
+    border-top: solid 1px #c9c9c9;
+    padding: 80px 0;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #929292;
+    opacity: 60%;
+}
+
+footer {
+    border-top: solid 1px #c9c9c9;
+    padding: 80px 0;
+    background-color: white;
+}
+
+footer img {
+    width: 110px;
+    margin-bottom: 0;
+}
+
+@media all and (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: none;
+    }
+
+    .navbar .nav-item:hover .nav-link {
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+
+    .navbar .nav-item .dropdown-menu {
+        margin-top: 0;
+    }
+}
+
+[v-cloak] {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    #outerSlider {
+        display: none;
+    }
+
+    header {
+        margin-bottom: 60%;
+    }
+}
+
+#memberImg img {
+    width: 60px !important;
+    border: 1px solid rgba(12, 12, 12, 0.2);
+    border-radius: 50% !important;
+}
+
+
+#profileImg img {
+    width: 200px !important;
+    border: 2px solid rgba(12, 12, 12, 0.2);
+    border-radius: 50% !important;
+}
+
+@media screen and (max-width: 990px) {
+    #dropdownMenuLink {
+        display: none;
+    }
+
+    #memberName {
+        margin-top: 2%;
+        display: inline-block;
+        float: right;
+    }
+
+    #memberImg {
+        float: right;
+    }
+
+    .bi-cart3, #lblCartCount {
+        margin-top: 2%;
+    }
+
+}
+

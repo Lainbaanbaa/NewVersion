@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <title>最新消息管理區</title>
+
+    <style>
+        .alertText {
+            color: #33b5e5;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn btn-warning" id="addNews">新增消息</button>
+
+    <div class="alert">
+        <span class="alertText">消息名稱</span>
+        <input type="text" calss="alertInput"><br>
+        <span class="alertText">封面圖</span>
+        <input type="file" accept="image/*"><br>
+        <span class="alertText">消息內容</span><br>
+        <textarea class="editor"></textarea>
+    </div>
+
+
+    <script>
+        $('#addNews').click(function () {
+            Swal.fire({
+                title: '新增最新消息',
+                html: `
+                <span class="alertText">消息名稱</span>
+                <input type="hidden" class="alertInput addEmpId" value=1>
+                <input type="text" class="alertInput addNewsTitle"><br>
+                <span class="alertText">消息內容</span><br>
+                <textarea class="editor addNewsContent"></textarea>
+                </div>
+                `,
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                confirmButtonText: '送出',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                showLoaderOnConfirm: true,
+
+                preConfirm: function () {
+                    let addEmpId = $('.addEmpId').val();
+                    let addNewsTitle = $('.addNewsTitle').val();
+                    let addNewsContent = $('.addNewsContent').val();
+                    return {
+                        empId: addEmpId,
+                        newsTitle: addNewsTitle,
+                        newsContent: addNewsContent
+                    }
+                }
+
+            }).then(async function (result) {
+                try {
+                    if (result.isConfirmed) {
+                        await fetch('../../newsServlet?action=insert', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(result)
+                        })
+                        await refresh();
+                    }
+                } catch (e) {
+                    alert(e);
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

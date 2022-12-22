@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-hart" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>領取折價券</title>
+    <!-- import bootstrap 5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- import font-style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+
+    <!-- import css stylesheet -->
+
+    <!-- import jquery-3.6.0 -->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- import icon -->
+    <script src="https://kit.fontawesome.com/b5ef6b60f3.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.11.0/qs.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/coupon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/main.css"/>
+
+    <style>
+        body {
+            background: rgba(0, 0, 0, .6) url('../../resources/static/image/raphael-maksian-qmpNzGjO_KE-unsplash.jpg') no-repeat fixed center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            z-index: -999999;
+            /*opacity: 30%;*/
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<article>
+    <div class="container" style="height: 1000px">
+
+        <div id="app" v-cloak>
+
+
+            <template class="row d-flex justify-content-center align-items-center container">
+
+                <div style="height: 10px"></div>
+
+                <div class="col-1"></div>
+                <button class="col-2 btn btn-success" @click="goHome()" style="opacity: 60%;z-index: 99">
+                    回到首頁
+                </button>
+                <div class="col-5"></div>
+                <button class="col-2 btn btn-success" @click="goOwnCoupon()" style="opacity: 60%;z-index: 99">
+                    我的折價券
+                </button>
+                <div class="col-1"></div>
+
+                <div id="couponBody" class="cd-flex card text-center col-md-6"
+                     v-for=" (coupon, index) in coupon"
+                     :key="coupon.COUPON_ID"
+                     style="margin: 10px 20px">
+
+                    <div class="image"><img src="https://i.imgur.com/DC94rZe.png" width="150"></div>
+                    <div class="image2"><img src="https://i.imgur.com/DC94rZe.png" width="150"></div>
+                    <h1>NT$ {{ coupon.COUPON_VAL }}</h1>
+                    <span class="d-block">{{ coupon.COUPON_NAR }}</span>
+                    <label class="d-block">使用期間</label>
+                    <span class="d-block">{{ coupon.USE_START }} 至 {{ coupon.USE_OVER }}</span>
+                    <small class="d-block">低消限制</small>
+                    <small class="d-block">${{ coupon.MINIMUM }}</small>
+                    <span class="col">
+                        <button @click.once="getCoupon(coupon, index)"
+                                class="btn btn-warning">點我領取</button>
+
+                    </span>
+                    <span class="mt-44 align-self-end">
+                     折價券編號: <small>{{ coupon.COUPON_ID }}</small>
+                    </span>
+                </div>
+
+                <!-- 佔位的暫時方案 -->
+                <div style="visibility: hidden">
+                    <div class="cd-flex card text-center col-md-6"
+                         style="margin: 10px 20px">
+                    </div>
+                </div>
+                <!-- 佔位結束 -->
+
+
+            </template>
+
+        </div>
+
+    </div>
+</article>
+
+<!--  NavBar  -->
+<script src="../../resources/static/js/navbar.js"></script>
+<!--  Footer  -->
+<script src="../../resources/static/js/footer.js"></script>
+
+<script>
+    let vm = Vue.createApp({
+        data() {
+            return {
+                memberName: '',
+                memberId: '',
+                coupon: [],
+                action: 'get_Coupon',
+            }
+        },
+        beforeCreate() {
+
+            let qs = Qs;
+            axios.post('/CGA104G1/ListAllCouponServlet', qs.stringify({
+
+            }))
+                .then(res => {
+                    this.coupon = res.data;
+                    console.log(res);
+                    if (res.data.length === 0) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '太貪心囉!稍後再回來看看吧~!',
+                            footer: '<a href="/CGA104G1/frontend/index.html">回到首頁</a>'
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
+        mounted() {
+
+        },
+        methods: {
+            getCoupon: function (coupon, index) {
+                qs = Qs;
+                axios.post('/CGA104G1/GetCouponServlet', qs.stringify({
+                    action: this.action,
+                    couponId: this.coupon[index].COUPON_ID
+                }))
+                    .then(res => {
+                        console.log(res);
+                        this.coupon.splice(index, 1)
+                        if (this.coupon.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '優惠券被你領光光了!',
+                                footer: '<a href="/CGA104G1/frontend/coupon/Coupon.html">前往查看</a>'
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
+            goHome: function () {
+                window.location.assign('../index.html')
+            },
+            goOwnCoupon: function () {
+                window.location.assign('Coupon.html')
+            }
+        }
+
+    });
+
+    vm.mount('#app');
+
+</script>
+
+<script type="text/javascript" src="../../resources/static/js/getName.js"></script>
+<!--  Cart -->
+<script type="text/javascript" src="../../resources/static/js/cart.js"></script>
+
+
+<!-- import bootstrap 5.2.1 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+</body>
+</html>
