@@ -1,4 +1,4 @@
-package com.notification.mode;
+package com.notification.model;
 
 import java.util.List;
 

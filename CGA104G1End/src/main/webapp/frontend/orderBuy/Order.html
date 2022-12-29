@@ -275,20 +275,20 @@
                     console.log(err);
                 })
         },
-        mounted() {
-            let cart = sessionStorage.getItem('part')
-            this.orderItems = JSON.parse(cart)
-            if (!cart || this.orderItems.length === 0 ) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '你的購物車還沒有東西喔!',
-                    footer: '<a href="/CGA104G1/frontend/item/shop.html">快去買買吧!</a>'
-                })
-                setTimeout(function () {
-                    window.location.assign('/CGA104G1/frontend/item/shop.html')
-                }, 2000)
-            }
-        },
+//         mounted() {
+//             let cart = sessionStorage.getItem('part')
+//             this.orderItems = JSON.parse(cart)
+//             if (!cart || this.orderItems.length === 0 ) {
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: '你的購物車還沒有東西喔!',
+//                     footer: '<a href="/CGA104G1/frontend/item/shop.html">快去買買吧!</a>'
+//                 })
+//                 setTimeout(function () {
+//                     window.location.assign('/CGA104G1/frontend/item/shop.html')
+//                 }, 2000)
+//             }
+//         },
         computed: {
             finalPrice: function () {
                 let total = 0;

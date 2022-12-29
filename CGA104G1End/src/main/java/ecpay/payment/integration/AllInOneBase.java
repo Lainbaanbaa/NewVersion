@@ -30,16 +30,16 @@ public class AllInOneBase {
 	protected static Document verifyDoc;
 	protected static String[] ignorePayment;
 	public AllInOneBase(){
-		try{
+//		try{
 			Document doc;
 			/* when using web project*/
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			String configPath = URLDecoder.decode(classLoader.getResource("/payment_conf.xml").getPath(), "UTF-8");
-			doc = EcpayFunction.xmlParser(configPath);
+//			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//			String configPath = URLDecoder.decode(classLoader.getResource("/payment_conf.xml").getPath(), "UTF-8");
+//			doc = EcpayFunction.xmlParser(configPath);
 			/* when using testing code*/
-//			String paymentConfPath = "./src/main/resources/payment_conf.xml";
-//			doc = EcpayFunction.xmlParser(paymentConfPath);
-//			
+			String paymentConfPath = "C:/Webapp/CGA104G1End/src/main/resources/payment_conf.xml";
+			doc = EcpayFunction.xmlParser(paymentConfPath);
+			
 			doc.getDocumentElement().normalize();
 			//OperatingMode
 			Element ele = (Element)doc.getElementsByTagName("OperatingMode").item(0);
@@ -71,8 +71,8 @@ public class AllInOneBase {
 			if(HashKey == null){
 				throw new EcpayException(ErrorMessage.MInfo_NOT_SETTING);
 			}
-		} catch(UnsupportedEncodingException e){
-			e.printStackTrace();
-		}
+//		} catch(UnsupportedEncodingException e){
+//			e.printStackTrace();
+//		}
 	}
 }

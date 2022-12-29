@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.emp.model.EmpService;
 import com.emp.model.EmpVO;
 
-@WebFilter(urlPatterns = { "/backend/emp/*", "/backend/effect/*" })
+//@WebFilter(urlPatterns = { "/backend/emp/*", "/backend/effect/*" })
 public class EmpFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

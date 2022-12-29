@@ -86,44 +86,58 @@ public class Group_Buy_OrderServlet extends HttpServlet {
 			Group_Buy_OrderService group_buy_OrderSvc = new Group_Buy_OrderService();
 
 			Group_Buy_OrderVO group_buy_orderVO = group_buy_OrderSvc.getOneEmp(gborder_id);
+			
 				
 			 StringBuffer sb = new StringBuffer();
 		        String url = sb.append(req.getScheme()).append("://")
 		                .append(req.getServerName()).append(":")
 		                .append(req.getServerPort())
 		                .append(req.getContextPath()).toString();
-			
-		 	   Date date = new Date();
-		        SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		        String orderDate = sd.format(date);
+			System.out.println(url);
+//		 	   Date date = new Date();
+//		        SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//		        String orderDate = sd.format(date);
+		        
+		        Date date = new Date();
+		        SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		        String now = dt.format(date);
 		        String indexUrl = url + "/frontend/index.html";
-		        String returnUrl = url + "/EcpayReturn";
+		        String returnUrl = url + "/EcpayReturnGB";
 
-		        AllInOne allInOne = new AllInOne("");
-		        AioCheckOutALL obj = new AioCheckOutALL();
-		        obj.setMerchantTradeNo(String.valueOf(gborder_id) + "br" + UUIDGenerator.getUUID()); // 訂單id+br+亂碼16位
-		        obj.setMerchantTradeDate(orderDate); // 交易時間
-		        obj.setTotalAmount(String.valueOf(group_buy_orderVO.getGb_endprice())); // 訂單總金額
-		        obj.setTradeDesc("A test order."); // 訂單描述
-		        obj.setItemName(group_buy_orderVO.getReceiver_name() + " 的 Barei 團購訂單，訂單編號: " + gborder_id); // 商品項目
-		        obj.setReturnURL(indexUrl);
-		        obj.setClientBackURL(indexUrl);
-		        obj.setOrderResultURL(returnUrl);
-		        obj.setNeedExtraPaidInfo("N");
-
-		       String form = allInOne.aioCheckOut(obj, null);
-		       out.print(form);
-			
+		     
+		        AllInOne allinone = new AllInOne("");
+		        AioCheckOutALL aiochickoutall = new AioCheckOutALL();
+		    
+		        aiochickoutall.setMerchantTradeNo(String.valueOf(gborder_id)+"br"+UUIDGenerator.getUUID());//訂單編號
+		       
+		        aiochickoutall.setMerchantTradeDate(now);
+		     
+		        aiochickoutall.setTotalAmount(String.valueOf(group_buy_orderVO.getGb_endprice()));
+		
+		        aiochickoutall.setTradeDesc("Test a Order");
+		 
+		        aiochickoutall.setItemName(group_buy_orderVO.getGroup_buy_itemVO().getGbitem_name());
+		  
+		        aiochickoutall.setReturnURL(indexUrl);
+		   
+		        aiochickoutall.setClientBackURL(indexUrl);
+		    
+		        aiochickoutall.setOrderResultURL(returnUrl);
+		   
+		        aiochickoutall.setNeedExtraPaidInfo("N");
+		       
+		       String green = allinone.aioCheckOut(aiochickoutall, null);
+		       
+		       req.setAttribute("green", green);
+		       
+		       System.out.println(green);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			group_buy_orderVO = group_buy_OrderSvc.getOneEmp(gborder_id);
-
-			
-
-			
-			req.setAttribute("group_buy_orderVO", group_buy_orderVO);
-
-//			String url = "/frontend/group_buy_order/listOneGroup_Buy_Order_byMaster.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
+		
+//			req.setAttribute("group_buy_orderVO", group_buy_orderVO);
+			String urlPay = "/frontend/group_buy_order/pay.jsp";
+			System.out.println(urlPay+"到了");
+			RequestDispatcher successView = req.getRequestDispatcher(urlPay);
 			successView.forward(req, res);
 		}
 

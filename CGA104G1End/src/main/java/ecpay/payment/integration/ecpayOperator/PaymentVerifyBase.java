@@ -20,12 +20,12 @@ public class PaymentVerifyBase{
 		doc = EcpayFunction.xmlParser(fileURL.toString());
 		doc.getDocumentElement().normalize();
 	}
-
+	
 	protected void requireCheck(String FieldName, String objValue, String require){
 		if(require.equals("1") && objValue.isEmpty())
 			throw new EcpayException(FieldName+"為必填");
 	}
-
+	
 	protected void valueCheck(String type, String objValue, Element ele){
 		if(objValue.isEmpty()){
 			return;
@@ -62,6 +62,6 @@ public class PaymentVerifyBase{
 				throw new EcpayException(ele.getAttribute("name")+"必須小於"+minimum+"或大於"+maximum);
 		} else if(type.equals("DepOpt")){
 			// TODO
-		}
+		} 
 	}
 }

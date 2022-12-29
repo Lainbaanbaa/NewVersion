@@ -15,25 +15,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebFilter(urlPatterns =  { "/backend/emp/*", 
-							"/backend/effect/*", 
-							"/backend/commodityDetails/*", 
-							"/backend/coupon/*", 
-							"/backend/discount/*", 
-							"/backend/emp_effect/*", 
-							"/backend/favorite_list/*", 
-							"/backend/group_buy/*", 
-							"/backend/group_Buy_Item/*", 
-							"/backend/group_buy_order/*", 
-							"/backend/group_buy_report/*", 
-							"/backend/group_join/*", 
-							"/backend/mem/*", 
-							"/backend/qualified_doctor/*", 
-							"/backend/article/*", 
-							"/backend/news/*", 
-							"/NameServlet" ,
-							"/backend/item/*"
-							} )
+//@WebFilter(urlPatterns =  { "/backend/emp/*", 
+//							"/backend/effect/*", 
+//							"/backend/commodityDetails/*", 
+//							"/backend/coupon/*", 
+//							"/backend/discount/*", 
+//							"/backend/emp_effect/*", 
+//							"/backend/favorite_list/*", 
+//							"/backend/group_buy/*", 
+//							"/backend/group_Buy_Item/*", 
+//							"/backend/group_buy_order/*", 
+//							"/backend/group_buy_report/*", 
+//							"/backend/group_join/*", 
+//							"/backend/mem/*", 
+//							"/backend/qualified_doctor/*", 
+//							"/backend/article/*", 
+//							"/backend/news/*", 
+//							"/NameServlet" ,
+//							"/backend/item/*"
+//							} )
 
 public class EmpLoginFilter implements Filter {
    

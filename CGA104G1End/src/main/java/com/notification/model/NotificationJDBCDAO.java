@@ -1,5 +1,5 @@
 
-package com.notification.mode;
+package com.notification.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

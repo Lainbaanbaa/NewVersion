@@ -11,11 +11,11 @@ import javax.servlet.http.*;
 import com.emp.model.EmpService;
 import com.emp.model.EmpVO;
 
-@WebFilter(urlPatterns = { "/backend/item/*",
-						   "/backend/commodityDetails/*",
-						   "/backend/favorite_list/*",
-						   "/backend/coupon/*"
-						})
+//@WebFilter(urlPatterns = { "/backend/item/*",
+//						   "/backend/commodityDetails/*",
+//						   "/backend/favorite_list/*",
+//						   "/backend/coupon/*"
+//						})
 public class StoreFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

@@ -246,6 +246,7 @@ public class NewOrderServlet extends HttpServlet {
             }
             newOrder.put(result);
             pw.print(newOrder);
+            System.out.println(newOrder);
 
         } else {
 

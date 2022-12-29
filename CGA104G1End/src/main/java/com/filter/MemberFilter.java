@@ -11,9 +11,9 @@ import javax.servlet.http.*;
 import com.emp.model.EmpService;
 import com.emp.model.EmpVO;
 
-@WebFilter(urlPatterns = { "/backend/mem/*",
-						   "/backend/qualified_doctor/*"
-						 })
+//@WebFilter(urlPatterns = { "/backend/mem/*",
+//						   "/backend/qualified_doctor/*"
+//						 })
 public class MemberFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

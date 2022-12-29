@@ -23,22 +23,22 @@ import com.mem.model.MemVO;
 import com.verify_code.model.Verify_codeService;
 
 
-@WebFilter(urlPatterns =  { "/frontend/article/addArticle.jsp",
-        "/frontend/article/addPic.jsp",
-        "/frontend/article/updateArticle.jsp",
-        "/Article_reportServlet",
-        "/Article_commentServlet",
-        "/CusNameServlet",
-        "/ArtLikeHateServlet",
-        "/frontend/group_join/*",
-        "/frontend/groupBuy/*",
-        "/frontend/groupBuy/listallgroupbuy.html",
-        "/frontend/mem/*",
-        "/frontend/coupon/*",
-        "/frontend/group_buy_order/*",
-        "/frontend/commodityDetails/*",
-         "/frontend/orderBuy/*"
-} )
+//@WebFilter(urlPatterns =  { "/frontend/article/addArticle.jsp",
+//        "/frontend/article/addPic.jsp",
+//        "/frontend/article/updateArticle.jsp",
+//        "/Article_reportServlet",
+//        "/Article_commentServlet",
+//        "/CusNameServlet",
+//        "/ArtLikeHateServlet",
+//        "/frontend/group_join/*",
+//        "/frontend/groupBuy/*",
+//        "/frontend/groupBuy/listallgroupbuy.html",
+//        "/frontend/mem/*",
+//        "/frontend/coupon/*",
+//        "/frontend/group_buy_order/*",
+//        "/frontend/commodityDetails/*",
+//         "/frontend/orderBuy/*"
+//} )
 
 public class MemLoginFilter implements Filter {
 

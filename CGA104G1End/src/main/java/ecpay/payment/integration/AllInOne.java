@@ -1,5 +1,6 @@
 package ecpay.payment.integration;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 
 import ecpay.payment.integration.domain.ATMRequestObj;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import ecpay.payment.integration.domain.AioCheckOutApplePay;
 import ecpay.payment.integration.domain.AioCheckOutATM;
 import ecpay.payment.integration.domain.AioCheckOutBARCODE;
 import ecpay.payment.integration.domain.AioCheckOutCVS;
@@ -50,9 +53,9 @@ import ecpay.payment.integration.verification.VerifyTradeNoAio;
  *
  */
 public class AllInOne extends AllInOneBase{
-
+	
 	public static final Logger log = LogManager.getLogger(AllInOne.class);
-
+	
 	/**
 	 * AllInOne Constructor
 	 * 參數帶入log4j.properties的路徑，若帶入空字串則預設不產生log
@@ -62,27 +65,27 @@ public class AllInOne extends AllInOneBase{
 		super();
 		if(log4jPropertiesPath != "" && log4jPropertiesPath != null){
 			String propertiesFile = log4jPropertiesPath + "/log4j.xml";
-
+			
 			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1) == "/")
 				propertiesFile = propertiesFile + "log4j.properties";
 			else
 				propertiesFile = propertiesFile + "/log4j.properties";
-
-//			try {
-//				LoggerContext logContext = (LoggerContext) LogManager.getContext(false);
-//				File conFile = new File(propertiesFile);
-//				logContext.setConfigLocation(conFile.toURI());
-//				logContext.reconfigure();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
+			
+			try {
+				LoggerContext logContext = (LoggerContext) LogManager.getContext(false);
+				File conFile = new File(propertiesFile);
+				logContext.setConfigLocation(conFile.toURI());
+				logContext.reconfigure();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
-
+	
 	/**
 	 * 檢查Hashtable中的檢查碼是否正確(確保資料未被竄改)
 	 * @param Hashtable params
-	 * @return boolean
+	 * @return boolean 
 	 */
 	public boolean compareCheckMacValue(Hashtable<String, String> params){
 		String checkMacValue = "";
@@ -100,7 +103,7 @@ public class AllInOne extends AllInOneBase{
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Apple Pay信用卡授權作業
 	 * @param CreateServerOrderobj
@@ -137,7 +140,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 下載信用卡撥款對帳資料檔的方法
 	 * @param fundingReconDetailObj
@@ -192,7 +195,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 查詢信用卡單筆明細記錄的方法
 	 * @param queryTradeObj
@@ -219,7 +222,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 下載會員對帳媒體檔的方法
 	 * @param tradeNoAioObj
@@ -267,7 +270,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 信用卡關帳/退刷/取消/放棄的方法
 	 * @param doActionObj
@@ -299,7 +302,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 查詢訂單資料的方法
 	 * @param queryTradeInfoObj
@@ -332,7 +335,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 信用卡定期定額訂單查詢
 	 * @param queryCreditCardPeriodInfoObj
@@ -360,7 +363,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 產生訂單Html form的方法
 	 * @param aioCheckOutObj
@@ -379,13 +382,23 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutALL) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutALL) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			if(ignorePayment.length > 0){
+			if(ignorePayment.length > 0){ 
 				ignoreParam = Arrays.toString(ignorePayment);
 				ignoreParam = ignoreParam.replaceAll(", ", "#");
 				ignoreParam = ignoreParam.substring(1, ignoreParam.length()-1);
 				((AioCheckOutALL) obj).setIgnorePayment(ignoreParam);
 			}
 			log.info("aioCheckOutALL params: " + ((AioCheckOutALL) obj).toString());
+		} else if(obj instanceof AioCheckOutApplePay){
+			((AioCheckOutApplePay) obj).setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && ((AioCheckOutApplePay) obj).getMerchantID().isEmpty()){
+				((AioCheckOutApplePay) obj).setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutApplePay) obj).getMerchantID().isEmpty()){
+			} else {
+				((AioCheckOutApplePay) obj).setMerchantID(MerchantID);
+			}
+			((AioCheckOutApplePay) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutOneTime params: " + ((AioCheckOutApplePay) obj).toString());
 		} else if(obj instanceof AioCheckOutATM){
 			((AioCheckOutATM) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()){
@@ -482,7 +495,7 @@ public class AllInOne extends AllInOneBase{
 		}
 		return out.toString();
 	}
-
+	
 	/**
 	 * ATM、CVS或BARCODE的取號結果通知方法。接收傳送至PaymentInfoURL的資料。回傳物件分為ATMRequestObj, CVSOrBARCODERequestObj二種，請用適當的物件承接以免出錯
 	 * @param req
@@ -530,7 +543,7 @@ public class AllInOne extends AllInOneBase{
 			return obj;
 		}
 	}
-
+	
 	/**
 	 * 產生HTML code
 	 * @param aio object

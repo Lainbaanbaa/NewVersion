@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(urlPatterns = { "/backend/commodityDetails/*" })
+//@WebFilter(urlPatterns = { "/backend/commodityDetails/*" })
 public class CouponFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;
